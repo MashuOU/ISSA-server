@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Student.hasMany(models.Score, { foreignKey: 'StudentId' })
       Student.belongsTo(models.Admin)
-      // Student.hasMany(models.Attendance)
+      Student.hasMany(models.Attendance)
     }
   }
   Student.init({
