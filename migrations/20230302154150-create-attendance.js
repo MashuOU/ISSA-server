@@ -17,7 +17,13 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
+      },
+      week: {
+        type: Sequelize.INTEGER
+      },
+      month: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
