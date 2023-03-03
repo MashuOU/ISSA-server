@@ -4,6 +4,7 @@
   "description": "Integrated Service of School Activity",
   "main": "index.js",
   "scripts": {
+    "reset-db": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,7 +24,10 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "pg": "^8.9.0",
     "postgres": "^3.3.3",
-    "sequelize": "^6.29.0"
+    "sequelize": "^6.29.0",
+    "slug": "^8.2.2",
+    "supertest": "^6.3.3"
   }
 }
