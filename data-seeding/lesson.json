@@ -1,22 +1,22 @@
 [
     {
-        "name": "Matematika",
-        "slug":""
+        "name": "Mathematic",
+        "slug":"mathematic"
     },
     {
-        "name": "Bahasa Indonesia",
-        "slug":""
+        "name": "Indonesian",
+        "slug":"indonesian"
     },
     {
-        "name": "Bahasa Inggris",
-        "slug":""
+        "name": "English",
+        "slug":"english"
     },
     {
-        "name": "Ilmu Pengetahuan Alam",
-        "slug":""
+        "name": "Science",
+        "slug":"science"
     },
     {
-        "name": "Ilmu Pengetahuan Sosial",
-        "slug":""
+        "name": "Social Science",
+        "slug":"social-science"
     }
 ]

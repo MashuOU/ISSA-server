@@ -3,14 +3,14 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Scores extends Model {
+  class Score extends Model {
 
     static associate(models) {
-      Scores.belongsTo(models.Student, { foreignKey: 'StudentId', sourceKey: 'id' })
-      Scores.belongsTo(models.Lesson, { foreignKey: 'LessonId', sourceKey: 'id' })
+      Score.belongsTo(models.Student, { foreignKey: 'StudentId', sourceKey: 'id' })
+      Score.belongsTo(models.Lesson, { foreignKey: 'LessonId', sourceKey: 'id' })
     }
   }
-  Scores.init({
+  Score.init({
     StudentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Scores',
+    modelName: 'Score',
   });
-  return Scores;
+  return Score;
 };
