@@ -1,0 +1,102 @@
+[
+  {
+    "NIM": "0203202301",
+    "name": "Abdi Azhari",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-10-03",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "http://s.sim.siap-online.com//upload/siswa/203270392571CDD3961D.190204115415.jpg",
+    "ClassId": 1
+  },
+  {
+    "NIM": "0203202302",
+    "name": "Amirah Zahra",
+    "age": 8,
+    "gender": "Female",
+    "birthDate": "2002-07-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "http://s.sim.siap-online.com//upload/siswa/2032703927C644342614.190204115307.jpg",
+    "ClassId": 1
+  },
+  {
+    "NIM": "0203202303",
+    "name": "Beni Habibie",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsd4MuCmtvUgVWfpakuSsassRMc4e7xqLQRB3IZzMWrRUQOvRv8gVVtsQdgMLXmu_pJw&usqp=CAU",
+    "ClassId": 1
+  },
+  {
+    "NIM": "0203202304",
+    "name": "Budi Ricardo",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://siplah-oss.tokoladang.co.id/merchant/4004/product/v1WewHbaPiGtBJOvfezKqxY1XI3Dgp9U9CSYZyzj.jpg",
+    "ClassId": 1
+  },
+  {
+    "NIM": "0203202305",
+    "name": "Deka Yanto",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://cf.shopee.co.id/file/20f08184babd99524747d4e409003971",
+    "ClassId": 1
+  },
+  {
+    "NIM": "0203202306",
+    "name": "Deki Yanto",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://cf.shopee.co.id/file/0c2573d917afddaf501b6f2186441c22",
+    "ClassId": 2
+  },
+  {
+    "NIM": "0203202307",
+    "name": "Fairus",
+    "age": 9,
+    "gender": "Female",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://www.foldertips.com/wp-content/uploads/2020/04/IMG_8844_Resize.jpg",
+    "ClassId": 2
+  },
+  {
+    "NIM": "0203202308",
+    "name": "Halimah Hasanah",
+    "age": 9,
+    "gender": "Female",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfhW2BEfRJAa39_Y1Hqa2pos4k7gZXVVEG0K1blZaY3k2RiuV7AxawnI2Xi_QVdp-oE-4&usqp=CAU",
+    "ClassId": 2
+  },
+  {
+    "NIM": "0203202309",
+    "name": "Muhammad Ridwan",
+    "age": 9,
+    "gender": "Male",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://images.tokopedia.net/img/cache/500-square/product-1/2017/3/8/710127/710127_e199a776-9083-4677-93ef-38ff227a3d42_351_467.jpg",
+    "ClassId": 2
+  },
+  {
+    "NIM": "0203202310",
+    "name": "Rahma Dina",
+    "age": 9,
+    "gender": "Female",
+    "birthDate": "2002-7-13",
+    "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqwFAR7s5E405OTz25DTQTw4GDEJWs6wg4gHhiy1YNBOjfNgV3qbrg1UgutrA88ZUxV60&usqp=CAU",
+    "ClassId": 2
+  }
+]

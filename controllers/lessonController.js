@@ -1,4 +1,5 @@
 const { Lesson } = require('../models')
+const Slug = require('slug')
 
 class LessonController {
     static async allLessons(req, res, next) {
@@ -23,7 +24,8 @@ class LessonController {
     }
     static async addLesson(req, res, next) {
         try {
-            const { name, slug } = req.body
+            const { name } = req.body
+            let slug = Slug(name)
             const data = await Lesson.create({ name, slug })
             res.status(201).json(data)
         } catch (error) {
@@ -41,7 +43,8 @@ class LessonController {
     }
     static async editLesson(req, res, next) {
         try {
-            const { name, slug } = req.body
+            const { name } = req.body
+            let slug = Slug(name)
             const id = req.params.id
             const data = await Lesson.update({ name, slug }, { where: { id } })
 

@@ -1,0 +1,42 @@
+[
+  {
+    "StudentId": 1,
+    "LessonId": 1,
+    "value": 100,
+    "category": "A+",
+    "desc": "excelent",
+    "status": true
+  },
+  {
+    "StudentId": 2,
+    "LessonId": 2,
+    "value": 100,
+    "category": "A+",
+    "desc": "excelent",
+    "status": true
+  },
+  {
+    "StudentId": 3,
+    "LessonId": 1,
+    "value": 100,
+    "category": "A+",
+    "desc": "excelent",
+    "status": true
+  },
+  {
+    "StudentId": 1,
+    "LessonId": 3,
+    "value": 100,
+    "category": "A+",
+    "desc": "excelent",
+    "status": true
+  },
+  {
+    "StudentId": 1,
+    "LessonId": 5,
+    "value": 100,
+    "category": "A+",
+    "desc": "excelent",
+    "status": true
+  }
+]

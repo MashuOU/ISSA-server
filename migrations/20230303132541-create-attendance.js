@@ -7,35 +7,33 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       StudentId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Students',
-          key: 'id'
-        }
+          model: {
+            tableName: 'Students',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       status: {
-        type: Sequelize.STRING
-      },
-      week: {
-        type: Sequelize.INTEGER
-      },
-      month: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Attendances');
-  }
+  },
 };

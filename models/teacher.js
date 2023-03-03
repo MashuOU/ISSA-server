@@ -3,17 +3,28 @@ const { Model } = require('sequelize');
 const { hashPassword } = require('../helpers');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    static associate(models) {}
+  class Teacher extends Model {
+    static associate(models) {
+      Teacher.hasOne(models.Class);
+    }
   }
-  User.init(
+  Teacher.init(
     {
-      NIM: {
+      NIP: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: { msg: `NIP must be unique` },
+        validate: {
+          notNull: { msg: `NIP is required` },
+          notEmpty: { msg: `NIP is required` },
+        },
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: { msg: `NIM is required` },
-          notEmpty: { msg: `NIM is required` },
+          notNull: { msg: `name is required` },
+          notEmpty: { msg: `name is required` },
         },
       },
       password: {
@@ -30,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Teacher',
     }
   );
-  User.beforeCreate((user) => {
-    user.password = hashPassword(user.password);
+  Teacher.beforeCreate((Teacher) => {
+    Teacher.password = hashPassword(Teacher.password);
   });
-  return User;
+  return Teacher;
 };

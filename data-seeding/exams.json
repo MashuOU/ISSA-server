@@ -1,0 +1,12 @@
+[
+  {
+    "name": "UTS",
+    "ClassId": 1,
+    "desc": "mid semester"
+  },
+  {
+    "name": "UAS",
+    "ClassId": 1,
+    "desc": "final semester"
+  }
+]
