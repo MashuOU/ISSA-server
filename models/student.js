@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Student.hasMany(models.Attendance);
       Student.hasMany(models.Score);
       Student.hasOne(models.User);
-      Student.belongsTo(models.Transaction);
+      Student.hasMany(models.Transaction);
     }
   }
   Student.init(
