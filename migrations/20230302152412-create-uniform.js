@@ -12,7 +12,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      addtional1: {
+      additional1: {
         type: Sequelize.STRING
       },
       additional2: {
