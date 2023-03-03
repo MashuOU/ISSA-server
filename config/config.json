@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "postgres",
-    "password": "CheeJemCung",
+    "password": "postgres",
     "database": "ISSA_Project",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "CheeJemCung",
+    "password": "postgres",
     "database": "ISSA_Project_Test",
     "host": "127.0.0.1",
     "dialect": "postgres"

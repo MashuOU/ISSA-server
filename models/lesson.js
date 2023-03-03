@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Lesson extends Model {
 
     static associate(models) {
-      Lesson.hasMany(models.Score, { foreignKey: 'LessonId' })
+      // Lesson.hasMany(models.Score, { foreignKey: 'LessonId' })
     }
   }
   Lesson.init({
