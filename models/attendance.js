@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Attendance.init({
     StudentId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: { msg: `StudentId is required` },

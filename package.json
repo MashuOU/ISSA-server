@@ -4,7 +4,7 @@
   "description": "Integrated Service of School Activity",
   "main": "index.js",
   "scripts": {
-    "reset-db": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
+    "reset-db": "sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

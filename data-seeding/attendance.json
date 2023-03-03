@@ -6,19 +6,31 @@
         "month":"maret"
     },
     {
+        "StudentId":"0203202301",
+        "status" : "Hadir",
+        "week":1,
+        "month":"maret"
+    },
+    {
+        "StudentId":"0203202301",
+        "status" : "Hadir",
+        "week":1,
+        "month":"maret"
+    },
+    {
         "StudentId":"0203202302",
         "status" : "Hadir",
         "week":1,
         "month":"maret"
     },
     {
-        "StudentId":"0203202303",
+        "StudentId":"0203202302",
         "status" : "Hadir",
         "week":1,
         "month":"maret"
     },
     {
-        "StudentId":"0203202304",
+        "StudentId":"0203202302",
         "status" : "Hadir",
         "week":1,
         "month":"maret"
@@ -28,36 +40,24 @@
         "status" : "Hadir",
         "week":1,
         "month":"maret"
-    },
-    {
-        "StudentId":"0203202306",
-        "status" : "Hadir",
-        "week":1,
-        "month":"maret"
-    },
-    {
-        "StudentId":"0203202307",
-        "Status" : "Hadir",
-        "week":1,
-        "month":"maret"
 
     },
     {
         "StudentId":"0203202308",
-        "Status" : "Hadir",
+        "status" : "Hadir",
         "week":1,
         "month":"maret"
 
     },
     {
         "StudentId":"0203202309",
-        "Status" : "Hadir",
+        "status" : "Hadir",
         "week":1,
         "month":"maret"
     },
     {
         "StudentId":"0203202310",
-        "Status" : "Hadir",
+        "status" : "Hadir",
         "week":1,
         "month":"maret"
     }
