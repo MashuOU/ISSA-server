@@ -1,24 +1,12 @@
-const b = require("bcrypt")
-const jwt = require('jsonwebtoken')
-const secret = process.env.JWT_SECRET
+const { hashSync, compareSync, genSaltSync } = require('bcryptjs');
+const { sign, verify } = require('jsonwebtoken');
+// let secret = process.env.JWT_SECRET;
+// console.log(secret, '<<<<');
 
+module.exports = {
+  hashPassword: (password) => hashSync(password, genSaltSync(10)),
+  compareHash: (pw, pw_db) => compareSync(pw, pw_db),
 
-const generatetoken = (payload) => {
-    return jwt.sign(payload, secret)
-}
-
-const decodeToken = (token) => {
-    return jwt.verify(token, secret)
-}
-const hashPassword = (password) => {
-    return b.hashSync(password, 12)
-}
-
-const checkPass = (password, hash) => {
-    return b.compareSync(password, hash)
-}
-
-
-module.exports = { hashPassword, checkPass, decodeToken, generatetoken }
-
-console.log(secret);
+  createToken: (payload) => sign(payload, 'issahehe'),
+  decodeToken: (payload) => verify(payload, 'issahehe'),
+};

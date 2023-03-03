@@ -7,29 +7,36 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       NIM: {
         type: Sequelize.STRING,
-        references: {
-          model: 'Students',
-          key: 'NIM'
-        },
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+      },
+      StudentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Students',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
-  }
+  },
 };

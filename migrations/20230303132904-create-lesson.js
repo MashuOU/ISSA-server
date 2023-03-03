@@ -7,26 +7,42 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
-        unique: true
       },
-      slug: {
-        type: Sequelize.STRING
+      imgUrl: {
+        type: Sequelize.STRING,
+      },
+      KKM: {
+        type: Sequelize.INTEGER,
+      },
+      desc: {
+        type: Sequelize.STRING,
+      },
+      ScheduleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Schedules',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Lessons');
-  }
+  },
 };
