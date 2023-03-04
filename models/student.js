@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // Student.hasMany(models.Score, { foreignKey: 'StudentId' })
-      Student.belongsTo(models.Admin)
+      Student.belongsTo(models.Admin, { foreignKey: 'TeacherId' })
       Student.hasMany(models.Attendance)
     }
   }

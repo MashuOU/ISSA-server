@@ -7,7 +7,7 @@ const { hashPassword } = require('../helpers')
 module.exports = (sequelize, DataTypes) => {
   class Admin extends Model {
     static associate(models) {
-      Admin.hasMany(models.Student)
+      Admin.hasMany(models.Student, { foreignKey: `TeacherId` })
     }
   }
   Admin.init({
