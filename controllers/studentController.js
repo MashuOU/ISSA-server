@@ -59,9 +59,10 @@ class StudentController {
     }
   }
   static async addStudent(req, res, next) {
+    const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
     try {
-      const { NIM, name, age, gender, birthDate, feedback, ClassId, imgUrl } = req.body;
-      const data = await Student.create({ NIM, name, age, gender, birthDate, feedback, ClassId, imgUrl });
+      const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
+      const data = await Student.create({ NIM, name, age, gender, birthDate, feedback, ClassId: teacherClass.id, imgUrl });
       res.status(201).json(data);
     } catch (error) {
       next(error);
@@ -80,8 +81,9 @@ class StudentController {
     }
   }
   static async editStudent(req, res, next) {
+    const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
     try {
-      const { NIM, name, age, gender, birthDate, feedback, ClassId, imgUrl } = req.body;
+      const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const id = req.params.id;
 
       const check = await Student.findByPk(id)
@@ -94,7 +96,7 @@ class StudentController {
           gender,
           birthDate,
           feedback,
-          ClassId,
+          ClassId: teacherClass.id,
           imgUrl,
         },
         { where: { id } }
