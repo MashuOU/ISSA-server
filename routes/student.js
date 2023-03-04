@@ -1,13 +1,15 @@
 const express = require('express');
 const StudentController = require('../controllers/studentController');
+const { teacherAuth } = require('../middlewares/authentication');
 const router = express.Router();
 
-router.get('/students', StudentController.allStudents);
-router.get('/student/:id', StudentController.studentById);
+router.use(teacherAuth);
+router.get('/', StudentController.allStudents);
+router.get('/:id', StudentController.studentById);
 
-router.post('/student', StudentController.addStudent);
-router.put('/student/:id', StudentController.editStudent);
+router.post('/', StudentController.addStudent);
+router.put('/:id', StudentController.editStudent);
 
-router.delete('/student/:id', StudentController.deleteStudent);
+router.delete('/:id', StudentController.deleteStudent);
 
 module.exports = router;

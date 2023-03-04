@@ -1,7 +1,7 @@
 const { decodeToken } = require('../helpers');
-const { Teacher } = require('../models');
+const { Teacher, User } = require('../models');
 
-async function authentication(req, res, next) {
+async function teacherAuth(req, res, next) {
   try {
     let { access_token } = req.headers;
     if (!access_token) throw { name: `unAuthentication` };
@@ -17,5 +17,21 @@ async function authentication(req, res, next) {
     next(error);
   }
 }
+async function userAuth(req, res, next) {
+  try {
+    let { access_token } = req.headers;
+    if (!access_token) throw { name: `unAuthentication` };
 
-module.exports = { authentication };
+    let payload = decodeToken(access_token);
+    let user = await User.findOne({ where: { NIM: payload } });
+    if (!user) throw { name: `unAuthentication` };
+    req.user = {
+      NIM: user.NIM,
+    };
+    next();
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { teacherAuth, userAuth };
