@@ -4,4 +4,5 @@ const router = express.Router();
 
 router.post('/', AttendanceController.addAttendance);
 
-router.post('/', AttendanceController.addAttendance)
+
+module.exports = router
