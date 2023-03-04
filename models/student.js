@@ -61,11 +61,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       feedback: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: { msg: `feedback is required` },
-          notEmpty: { msg: `feedback is required` },
-        },
       },
       ClassId: {
         type: DataTypes.INTEGER,
@@ -79,8 +74,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notNull: { msg: `Image Url is required` },
-          notEmpty: { msg: `Image Url is required` },
+          notNull: { msg: `imgUrl is required` },
+          notEmpty: { msg: `imgUrl is required` },
         },
       },
     },

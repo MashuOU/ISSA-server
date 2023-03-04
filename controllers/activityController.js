@@ -24,6 +24,7 @@ class ActivityController {
     static async addActivity(req, res, next) {
         try {
             const { name, date } = req.body
+            console.log(date);
             const data = await Activity.create({ name, date })
             res.status(201).json(data)
         } catch (error) {
@@ -33,6 +34,8 @@ class ActivityController {
     static async deleteActivity(req, res, next) {
         try {
             const id = req.params.id
+            const check = await Activity.findByPk(id)
+            if (!check) throw { name: `notFound` }
             const data = await Activity.destroy({ where: { id } })
             res.status(200).json({ message: "Success delete" })
         } catch (error) {
@@ -43,6 +46,9 @@ class ActivityController {
         try {
             const { name, date } = req.body
             const id = req.params.id
+            const check = await Activity.findByPk(id)
+            if (!check) throw { name: `notFound` }
+
             const data = await Activity.update({ name, date }, { where: { id } })
 
             res.status(201).json(data)

@@ -71,9 +71,8 @@ class StudentController {
     try {
       const id = req.params.id;
       const student = await Student.findByPk(id);
-      if (!student) {
-        throw { name: 'notFound' };
-      }
+      if (!student)  throw { name: 'notFound' };
+      
       const data = await Student.destroy({ where: { id } });
       res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list` });
     } catch (error) {
@@ -84,6 +83,9 @@ class StudentController {
     try {
       const { NIM, name, age, gender, birthDate, feedback, ClassId, imgUrl } = req.body;
       const id = req.params.id;
+
+      const check = await Student.findByPk(id)
+      if (!check) throw { name: `notFound` }
       const data = await Student.update(
         {
           NIM,
@@ -98,7 +100,7 @@ class StudentController {
         { where: { id } }
       );
 
-      res.status(201).json(data);
+      res.status(201).json({ status: `updated` });
     } catch (error) {
       next(error);
     }

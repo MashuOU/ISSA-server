@@ -25,6 +25,7 @@ class LessonController {
     static async addLesson(req, res, next) {
         try {
             const { name } = req.body
+            if (!name) throw { name: `lesson error` }
             let slug = Slug(name)
             const data = await Lesson.create({ name, slug })
             res.status(201).json(data)
@@ -35,6 +36,8 @@ class LessonController {
     static async deleteLesson(req, res, next) {
         try {
             const id = req.params.id
+            const check = await Lesson.findByPk(id)
+            if (!check) throw { name: `notFound` }
             const data = await Lesson.destroy({ where: { id } })
             res.status(200).json({ message: "Success delete" })
         } catch (error) {
@@ -44,11 +47,15 @@ class LessonController {
     static async editLesson(req, res, next) {
         try {
             const { name } = req.body
+            if (!name) throw { name: `lesson error` }
             let slug = Slug(name)
             const id = req.params.id
+            const check = await Lesson.findByPk(id)
+            if (!check) throw { name: `notFound` }
+
             const data = await Lesson.update({ name, slug }, { where: { id } })
 
-            res.status(201).json(data)
+            res.status(201).json({ status: `success` })
         } catch (error) {
             next(error)
         }

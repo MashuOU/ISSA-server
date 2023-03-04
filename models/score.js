@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
+            scoreValue(score) {
+            if (score < 0 || score > 100) throw  'score value range is 0 to 100' 
+          },
           notNull: { msg: `value is required` },
           notEmpty: { msg: `value is required` },
         },
