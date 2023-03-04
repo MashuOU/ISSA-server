@@ -1,7 +1,7 @@
-const express = require('express')
-const ScoreController = require('../controllers/scoreController')
-const router = express.Router()
+const express = require('express');
+const ScoreController = require('../controllers/scoreController');
+const router = express.Router();
 
-router.post('/score', ScoreController.addScore)
+router.post('/', ScoreController.addScore);
 
-module.exports = router
+module.exports = router;
