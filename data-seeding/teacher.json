@@ -1,7 +1,14 @@
 [
-    {
-        "NIP": "1800011221",
-        "name": "Julianto",
-        "password": "qwerty" 
-    }
+  {
+    "NIP": "1800011221",
+    "name": "Julianto",
+    "password": "qwerty",
+    "imgUrl": "https://smpn2kelapadua.sch.id/media_library/employees/43099a3a74f681f1c08fa268c258f94f.JPG"
+  },
+  {
+    "NIP": "1800011222",
+    "name": "Sumiyati",
+    "password": "12345",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9QlB991ONcK5xybf6AGCg-JDna5VUqibyfRgngW9-PDh4vnRTGItX_0XdE1YbExBIgFc&usqp=CAU"
+  }
 ]

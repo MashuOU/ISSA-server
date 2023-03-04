@@ -1,7 +1,12 @@
-const express = require('express')
-const TeacherController = require('../controllers/teacherController')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const TeacherController = require('../controllers/teacherController');
+const { userAuth } = require('../middlewares/authentication');
 
-router.post('/teacher/login', TeacherController.login)
+router.post('/login', TeacherController.login);
 
-module.exports = router
+router.use(userAuth);
+
+router.post('/register', TeacherController.register);
+
+module.exports = router;

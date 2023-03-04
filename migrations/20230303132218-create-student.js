@@ -7,45 +7,51 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       NIM: {
         type: Sequelize.STRING,
-        unique: true
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       age: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
       },
       gender: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       birthDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       feedback: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
-      TeacherId: {
+      ClassId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Admins',
-          key: 'id'
-        }
+          model: {
+            tableName: 'Classes',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
+      imgUrl: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Students');
-  }
+  },
 };

@@ -1,0 +1,42 @@
+[
+  {
+    "StudentId": 1,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 2,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 3,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 4,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 5,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 6,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 7,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 8,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 9,
+    "status": "Hadir"
+  },
+  {
+    "StudentId": 10,
+    "status": "Hadir"
+  }
+]

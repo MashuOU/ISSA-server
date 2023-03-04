@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "CheeJemCung",
     "database": "ISSA_Project",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
