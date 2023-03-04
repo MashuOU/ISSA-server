@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { authentication } = require('../middlewares/authentication');
 const user = require('./user');
 const student = require('./student');
 const teacher = require('./teacher');
@@ -10,15 +9,14 @@ const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
 
-router.use(teacher);
-router.use(authentication);
-router.use(user);
-router.use(lesson);
-router.use(score);
-router.use(student);
-router.use(activity);
-router.use(attendance);
-router.use(chat);
+router.use('/teachers', teacher);
+router.use('/users', user);
+router.use('/students', student);
+router.use('/lessons', lesson);
+router.use('/scores', score);
+router.use('/activities', activity);
+router.use('/attendances', attendance);
+router.use('/chats', chat);
 
 router.get('/', (req, res) => {
   res.send(`

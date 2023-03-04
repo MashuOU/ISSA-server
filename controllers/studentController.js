@@ -11,7 +11,7 @@ class StudentController {
             model: Class,
             include: {
               model: Teacher,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
+              attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
             },
           },
           {
