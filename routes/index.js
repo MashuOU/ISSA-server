@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const public = require('./public');
 const user = require('./user');
 const student = require('./student');
 const teacher = require('./teacher');
@@ -9,8 +10,15 @@ const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
 
-router.use('/teachers', teacher);
+const { teacherAuth } = require('../middlewares/authentication');
+
+
 router.use('/users', user);
+router.use('/public', public)
+
+router.use(teacherAuth);
+
+router.use('/teachers', teacher);
 router.use('/students', student);
 router.use('/lessons', lesson);
 router.use('/scores', score);

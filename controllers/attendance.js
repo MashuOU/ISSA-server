@@ -9,7 +9,11 @@ class AttendanceController {
 
       const attendance = await Attendance.findAll({ where: { id: StudentId } })
 
+      // console.log(attendance[0].updatedAt.getDay(), new Date().getDay());
+      // console.log(attendance);
       if (attendance[0].updatedAt.getDay() == new Date().getDay()) throw { name: `absentError` }
+
+
       const data = await Attendance.create({ StudentId, status });
       res.status(201).json(data);
     } catch (error) {
