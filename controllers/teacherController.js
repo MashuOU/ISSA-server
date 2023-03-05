@@ -19,7 +19,7 @@ class TeacherController {
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIP);
-          res.status(200).json({ access_token, classId: ClassId.id });
+          res.status(200).json({ access_token, ClassId: ClassId.id });
         }
       }
     } catch (error) {
