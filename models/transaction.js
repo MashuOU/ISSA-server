@@ -14,9 +14,25 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init(
     {
-      status: DataTypes.BOOLEAN,
-      dueDate: DataTypes.DATE,
-      StudentId: DataTypes.INTEGER,
+      status: {
+        type: DataTypes.BOOLEAN,
+      },
+      dueDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `dueDate is required` },
+          notEmpty: { msg: `dueDate is required` },
+        }
+      },
+      StudentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `StudentId is required` },
+          notEmpty: { msg: `StudentId is required` },
+        }
+      },
     },
     {
       sequelize,

@@ -15,10 +15,39 @@ module.exports = (sequelize, DataTypes) => {
   }
   Lesson.init(
     {
-      name: DataTypes.STRING,
-      imgUrl: DataTypes.STRING,
-      KKM: DataTypes.INTEGER,
-      desc: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `name is required` },
+          notEmpty: { msg: `name is required` },
+        }
+      },
+      imgUrl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `imgUrl is required` },
+          notEmpty: { msg: `imgUrl is required` },
+        }
+      },
+      KKM: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `KKM is required` },
+          notEmpty: { msg: `KKM is required` },
+          isNumeric: { msg: `KKM must be a number` }
+        }
+      },
+      desc: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `desc is required` },
+          notEmpty: { msg: `desc is required` },
+        }
+      },
       // ScheduleId: DataTypes.INTEGER,
     },
     {
