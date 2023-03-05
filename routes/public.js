@@ -10,6 +10,7 @@ const { userAuth } = require('../middlewares/authentication');
 router.use(userAuth);
 router.get('/lesson', LessonController.allLessons);
 router.get('/lesson/:id', LessonController.lessonById);
+router.get('/student/lesson/:ClassId', LessonController.studentlessondetail);
 
 router.get('/activity', ActivityController.allActivities);
 router.get('/activity/:id', ActivityController.activityById);

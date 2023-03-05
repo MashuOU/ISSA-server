@@ -2,10 +2,12 @@ const { Student, Attendance, Score, Lesson, Class, Teacher } = require('../model
 
 class StudentController {
   static async allStudents(req, res, next) {
+    const { ClassId } = req.query
     try {
       const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
+      let filter = { ClassId }
       const data = await Student.findAll({
-        where: { ClassId: teacherClass.id },
+        where: filter,
         include: [
           {
             model: Class,
@@ -72,8 +74,8 @@ class StudentController {
     try {
       const id = req.params.id;
       const student = await Student.findByPk(id);
-      if (!student)  throw { name: 'notFound' };
-      
+      if (!student) throw { name: 'notFound' };
+
       const data = await Student.destroy({ where: { id } });
       res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list` });
     } catch (error) {

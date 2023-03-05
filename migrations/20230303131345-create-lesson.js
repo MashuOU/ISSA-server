@@ -21,17 +21,6 @@ module.exports = {
       desc: {
         type: Sequelize.STRING,
       },
-      ScheduleId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'Schedules',
-          },
-          key: 'id',
-        },
-        onDelete: 'cascade',
-        onUpdate: 'cascade',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

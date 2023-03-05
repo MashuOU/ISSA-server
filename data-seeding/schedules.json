@@ -1,26 +1,52 @@
 [
   {
     "ClassId": 1,
+    "LessonId": 2,
     "day": "senin"
   },
   {
     "ClassId": 1,
+    "LessonId": 1,
+    "day": "senin"
+  },
+  {
+    "ClassId": 1,
+    "LessonId": 5,
+    "day": "senin"
+  },
+  {
+    "ClassId": 1,
+    "LessonId": 4,
+    "day": "selasa,"
+  },
+  {
+    "ClassId": 1,
+    "LessonId": 3,
+    "day": "selasa"
+  },
+  {
+    "ClassId": 2,
+    "LessonId": 2,
+    "day": "senin"
+  },
+  {
+    "ClassId": 2,
+    "LessonId": 5,
+    "day": "selasa"
+  },
+  {
+    "ClassId": 2,
+    "LessonId": 4,
+    "day": "selasa,"
+  },
+  {
+    "ClassId": 1,
+    "LessonId": 3,
     "day": "selasa"
   },
   {
     "ClassId": 1,
-    "day": "rabu"
-  },
-  {
-    "ClassId": 1,
-    "day": "kamis,"
-  },
-  {
-    "ClassId": 1,
-    "day": "jumat"
-  },
-  {
-    "ClassId": 1,
-    "day": "sabtu"
+    "LessonId": 8,
+    "day": "selasa"
   }
 ]

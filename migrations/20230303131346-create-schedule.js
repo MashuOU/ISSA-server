@@ -20,6 +20,17 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade',
       },
+      LessonId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Lessons',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
       day: {
         type: Sequelize.STRING,
       },

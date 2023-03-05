@@ -4,16 +4,13 @@ class AttendanceController {
   static async addAttendance(req, res, next) {
     try {
       const { StudentId, status } = req.body;
+
       const check = await Student.findByPk(StudentId)
       if (!check) throw { name: `notFound` }
 
-      const attendance = await Attendance.findAll({ where: { id: StudentId } })
-
-      // console.log(attendance[0].updatedAt.getDay(), new Date().getDay());
-      // console.log(attendance);
-      if (attendance[0].updatedAt.getDay() == new Date().getDay()) throw { name: `absentError` }
-
-
+      const attendance = await Attendance.findAll({ where: { StudentId }, order: [['updatedAt', 'DESC']] })
+      if (attendance[0].createdAt.getDate() == new Date().getDate()) throw { name: `absentError` }
+      
       const data = await Attendance.create({ StudentId, status });
       res.status(201).json(data);
     } catch (error) {
@@ -27,10 +24,12 @@ class AttendanceController {
   //     const check = await Student.findByPk(StudentId)
   //     if (!check) throw { name: `notFound` }
 
-  //     const attendance = await Attendance.findAll({ where: { id: StudentId } })
-
-  //     if (attendance[0].createdAt.getDay() == new Date().getDay()) throw { name: `absentError` }
-  //     const data = await Attendance.create({ StudentId, status });
+  //     const [user, created] = await Attendance.findOrCreate({
+  //       where: { StudentId },
+  //       defaults: {
+  //         job: 'Technical Lead JavaScript'
+  //       }
+  //     });
   //     res.status(201).json(data);
   //   } catch (error) {
   //     next(error);

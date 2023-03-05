@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Lesson.hasMany(models.Score);
-      Lesson.belongsTo(models.Schedule);
+      Lesson.hasMany(models.Schedule);
     }
   }
   Lesson.init(
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       imgUrl: DataTypes.STRING,
       KKM: DataTypes.INTEGER,
       desc: DataTypes.STRING,
-      ScheduleId: DataTypes.INTEGER,
+      // ScheduleId: DataTypes.INTEGER,
     },
     {
       sequelize,
