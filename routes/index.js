@@ -9,8 +9,10 @@ const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
 
-router.use('/teachers', teacher);
 router.use('/users', user);
+router.use('/teachers', teacher);
+
+
 router.use('/students', student);
 router.use('/lessons', lesson);
 router.use('/scores', score);
