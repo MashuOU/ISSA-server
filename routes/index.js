@@ -15,10 +15,10 @@ const { teacherAuth } = require('../middlewares/authentication');
 
 router.use('/users', user);
 router.use('/public', public)
+router.use('/teachers', teacher);
 
 router.use(teacherAuth);
 
-router.use('/teachers', teacher);
 router.use('/students', student);
 router.use('/lessons', lesson);
 router.use('/scores', score);
