@@ -27,6 +27,7 @@ router.use('/lessons', lesson);
 router.use('/scores', score);
 router.use('/activities', activity);
 router.use('/attendances', attendance);
+router.use('/schedules', schedule);
 router.use('/chats', chat);
 router.use('/schedule', schedule);
 

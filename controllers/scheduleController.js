@@ -1,15 +1,16 @@
-const { Schedule } = require('../models')
-
-class Controller {
-    static async addSchedule(req, res, next) {
-        try {
-            const { ClassId, LessonId, day } = req.body
-            const data = await Schedule.create({ ClassId, LessonId, day })
-
-            res.status(201).json(data)
-        } catch (error) {
-            next(error);
-        }
+class ScheduleController {
+  static async schedules(req, res, next) {
+    const { idTeacher } = req.user;
+    try {
+      const data = await Schedule.findAll({
+        where: { ClassId: idTeacher },
+        include: {
+          model: Lesson,
+        },
+      });
+      res.status(200).json(data);
+    } catch (err) {
+      console.log(err);
     }
+  }
 }
-module.exports = Controller;

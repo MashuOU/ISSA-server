@@ -9,6 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      AssignmentId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Assignments',
+          },
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
       value: {
         type: Sequelize.INTEGER,
       },

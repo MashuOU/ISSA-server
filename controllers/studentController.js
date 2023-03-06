@@ -45,13 +45,29 @@ class StudentController {
           {
             model: Score,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
-            include: {
-              model: Lesson,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
-            },
+            include: [
+              { model: Assignment, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+              {
+                model: Lesson,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+              },
+            ],
           },
         ],
       });
+      // const scoreExam = data.Scores.filter((x) => x.Assignment.type == 'Exam').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreExam);
+      const scoreTask = data.Scores.filter((x) => x.Assignment.type == 'Task').map((y) => {
+        return y.value * 0.45;
+      });
+      console.log(scoreTask);
+      // const scoreExam = data.Scores.filter((x) => x.assignmentType == 'Exam').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreExam);
+
       if (!data) {
         throw { name: 'notFound' };
       }
@@ -92,8 +108,8 @@ class StudentController {
       const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const id = req.params.id;
 
-      const check = await Student.findByPk(id)
-      if (!check) throw { name: `notFound` }
+      const check = await Student.findByPk(id);
+      if (!check) throw { name: `notFound` };
       const data = await Student.update(
         {
           NIM,
