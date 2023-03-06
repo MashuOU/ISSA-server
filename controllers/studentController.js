@@ -53,10 +53,14 @@ class StudentController {
           },
         ],
       });
-      // const scoreTask = data.Scores.filter((x) => x.assignmentType == 'Task').map((y) => {
+      // const scoreExam = data.Scores.filter((x) => x.Assignment.type == 'Exam').map((y) => {
       //   return y.value * 0.45;
       // });
-      // console.log(scoreTask);
+      // console.log(scoreExam);
+      const scoreTask = data.Scores.filter((x) => x.Assignment.type == 'Task').map((y) => {
+        return y.value * 0.45;
+      });
+      console.log(scoreTask);
       // const scoreExam = data.Scores.filter((x) => x.assignmentType == 'Exam').map((y) => {
       //   return y.value * 0.45;
       // });
