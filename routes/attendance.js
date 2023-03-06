@@ -3,7 +3,7 @@ const AttendanceController = require('../controllers/attendance');
 const router = express.Router();
 
 router.post('/', AttendanceController.addAttendance);
-// router.put('/', AttendanceController.editAttendance);
+router.put('/:id', AttendanceController.editAttendance);
 
 
 module.exports = router
