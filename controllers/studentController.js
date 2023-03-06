@@ -2,10 +2,12 @@ const { Student, Attendance, Score, Lesson, Class, Teacher, History } = require(
 
 class StudentController {
   static async allStudents(req, res, next) {
+    const { ClassId } = req.query
     try {
       const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
+      let filter = { ClassId }
       const data = await Student.findAll({
-        where: { ClassId: teacherClass.id },
+        where: filter,
         include: [
           {
             model: Class,

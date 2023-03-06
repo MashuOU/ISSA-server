@@ -6,12 +6,13 @@ class AttendanceController {
       const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
 
       const { StudentId, status } = req.body;
+
       const check = await Student.findByPk(StudentId)
       if (!check) throw { name: `notFound` }
 
-      const attendance = await Attendance.findAll({ where: { id: StudentId } })
+      const attendance = await Attendance.findAll({ where: { StudentId }, order: [['date', 'DESC']] })
+      if (attendance[0].createdAt.getDate() == new Date().getDate()) throw { name: `absentError` }
 
-      if (attendance[0].updatedAt.getDay() == new Date().getDay()) throw { name: `absentError` }
       const data = await Attendance.create({ StudentId, status });
 
       const history = await History.create({ description: `attendance ${check.name} has been created`, createdBy: teacherClass.Teacher.name })

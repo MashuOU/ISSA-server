@@ -25,12 +25,12 @@ function errorHandler(err, req, res, next) {
 
         case "unAuthentication":
         case "JsonWebTokenError":
-            statusCode = 403;
+            statusCode = 401;
             msg = "Invalid Token";
             break;
 
         case "unauthorized":
-            statusCode = 401;
+            statusCode = 403;
             msg = "Unauthorized";
             break;
 
