@@ -24,6 +24,7 @@ class chatController {
 
   static async postMessage(req, res) {
     const { from, to, message } = req.body;
+    console.log(message);
     try {
       const adding = message;
       let addMsg = await Chat.findOne({
