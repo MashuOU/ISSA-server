@@ -5,6 +5,8 @@ class TeacherController {
   static async login(req, res, next) {
     try {
       const { NIP, password } = req.body;
+      if (!NIP || !password) throw { name: `loginError` }
+
       const data = await Teacher.findOne({ where: { NIP } });
       if (!data) {
         throw { name: 'loginError' };
@@ -21,6 +23,21 @@ class TeacherController {
       next(error);
     }
   }
+
+  static async register(req, res, next) {
+    try {
+      const { NIP, password, name } = req.body;
+      console.log(NIP);
+      const data = await Teacher.create({ NIP, password, name });
+      res.status(201).json({ msg: `succesfuly registered` })
+
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
+
 }
 
 module.exports = TeacherController;

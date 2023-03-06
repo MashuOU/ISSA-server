@@ -1,4 +1,4 @@
-const { Student, Attendance, Score, Lesson, Class, Teacher } = require('../models');
+const { Student, Attendance, Score, Lesson, Class, Teacher, Assignment } = require('../models');
 
 class StudentController {
   static async allStudents(req, res, next) {
@@ -43,13 +43,29 @@ class StudentController {
           {
             model: Score,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
-            include: {
-              model: Lesson,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
-            },
+            include: [
+              { model: Assignment, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+              {
+                model: Lesson,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+              },
+            ],
           },
         ],
       });
+      // const scoreExam = data.Scores.filter((x) => x.Assignment.type == 'Exam').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreExam);
+      const scoreTask = data.Scores.filter((x) => x.Assignment.type == 'Task').map((y) => {
+        return y.value * 0.45;
+      });
+      console.log(scoreTask);
+      // const scoreExam = data.Scores.filter((x) => x.assignmentType == 'Exam').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreExam);
+
       if (!data) {
         throw { name: 'notFound' };
       }
@@ -72,9 +88,8 @@ class StudentController {
     try {
       const id = req.params.id;
       const student = await Student.findByPk(id);
-      if (!student) {
-        throw { name: 'notFound' };
-      }
+      if (!student) throw { name: 'notFound' };
+
       const data = await Student.destroy({ where: { id } });
       res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list` });
     } catch (error) {
@@ -86,6 +101,9 @@ class StudentController {
     try {
       const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const id = req.params.id;
+
+      const check = await Student.findByPk(id);
+      if (!check) throw { name: `notFound` };
       const data = await Student.update(
         {
           NIM,
@@ -99,7 +117,8 @@ class StudentController {
         },
         { where: { id } }
       );
-      res.status(201).json(data);
+
+      res.status(201).json({ status: `updated` });
     } catch (error) {
       next(error);
     }

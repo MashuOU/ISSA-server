@@ -8,6 +8,7 @@ router.get('/:id', LessonController.lessonById);
 router.post('/', LessonController.addLesson);
 router.put('/:id', LessonController.editLesson);
 
-router.delete('/:id', LessonController.deleteLesson);
+router.delete('/:id', LessonController.deleteLesson)
 
-module.exports = router;
+
+module.exports = router

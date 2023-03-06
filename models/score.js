@@ -11,14 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Score.belongsTo(models.Student);
       Score.belongsTo(models.Lesson);
+      Score.belongsTo(models.Assignment);
     }
   }
   Score.init(
     {
+      AssignmentId: DataTypes.INTEGER,
       value: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
+          scoreValue(score) {
+            if (score < 0 || score > 100) throw 'score value range is 0 to 100';
+          },
           notNull: { msg: `value is required` },
           notEmpty: { msg: `value is required` },
         },

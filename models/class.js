@@ -12,8 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       Class.belongsTo(models.Teacher);
       Class.hasMany(models.Student);
       Class.hasMany(models.Schedule);
-      Class.hasMany(models.Task);
-      Class.hasMany(models.Exam);
     }
   }
   Class.init(

@@ -5,6 +5,8 @@ class UserController {
   static async login(req, res, next) {
     try {
       const { NIM, password } = req.body;
+      if (!NIM || !password) throw { name: `loginError` }
+
       const data = await User.findOne({
         where: { NIM },
       });
