@@ -1,4 +1,4 @@
-const { Activity } = require('../models')
+const { Activity, Class, Teacher, History } = require('../models')
 
 class ActivityController {
     static async allActivities(req, res, next) {
@@ -23,27 +23,39 @@ class ActivityController {
     }
     static async addActivity(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const { name, date } = req.body
             console.log(date);
             const data = await Activity.create({ name, date })
-            res.status(201).json(data)
+
+            const history = await History.create({ description: `activity ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+
+            res.status(201).json({ data, history })
         } catch (error) {
             next(error)
         }
     }
     static async deleteActivity(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const id = req.params.id
             const check = await Activity.findByPk(id)
             if (!check) throw { name: `notFound` }
             const data = await Activity.destroy({ where: { id } })
-            res.status(200).json({ message: "Success delete" })
+
+            const history = await History.create({ description: `activity ${check.name} has been deleted`, createdBy: teacherClass.Teacher.name })
+
+            res.status(200).json({ message: "Success delete", history })
         } catch (error) {
             next(error)
         }
     }
     static async editActivity(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const { name, date } = req.body
             const id = req.params.id
             const check = await Activity.findByPk(id)
@@ -51,7 +63,9 @@ class ActivityController {
 
             const data = await Activity.update({ name, date }, { where: { id } })
 
-            res.status(201).json(data)
+            const history = await History.create({ description: `activity ${check.name} has been edited`, createdBy: teacherClass.Teacher.name })
+
+            res.status(201).json({ data, history })
         } catch (error) {
             next(error)
         }
