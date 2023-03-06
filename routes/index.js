@@ -8,6 +8,7 @@ const activity = require('./activity');
 const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
+const schedule = require('./schedule');
 
 router.use('/teachers', teacher);
 router.use('/users', user);
@@ -16,6 +17,7 @@ router.use('/lessons', lesson);
 router.use('/scores', score);
 router.use('/activities', activity);
 router.use('/attendances', attendance);
+router.use('/schedules', schedule);
 router.use('/chats', chat);
 
 router.get('/', (req, res) => {

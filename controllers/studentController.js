@@ -1,4 +1,4 @@
-const { Student, Attendance, Score, Lesson, Class, Teacher } = require('../models');
+const { Student, Attendance, Score, Lesson, Class, Teacher, Assignment } = require('../models');
 
 class StudentController {
   static async allStudents(req, res, next) {
@@ -43,10 +43,13 @@ class StudentController {
           {
             model: Score,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
-            include: {
-              model: Lesson,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
-            },
+            include: [
+              { model: Assignment, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+              {
+                model: Lesson,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+              },
+            ],
           },
         ],
       });

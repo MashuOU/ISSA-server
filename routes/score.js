@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post('/', ScoreController.addScore);
 
-router.post('/', ScoreController.addScore)
-router.put('/', ScoreController.editScore)
+router.post('/', ScoreController.addScore);
+router.put('/', ScoreController.editScore);
 
 module.exports = router;
