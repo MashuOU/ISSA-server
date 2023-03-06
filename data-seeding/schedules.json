@@ -1,6 +1,12 @@
 [
   {
     "ClassId": 1,
+    "LessonId": 2,
+    "day": "senin"
+  },
+  {
+    "ClassId": 1,
+    "LessonId": 1,
     "day": "senin",
     "LessonId": 1
   },

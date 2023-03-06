@@ -1,4 +1,4 @@
-const { Lesson } = require('../models')
+const { Lesson, Teacher, Class, History } = require('../models')
 const Slug = require('slug')
 
 class LessonController {
@@ -22,23 +22,42 @@ class LessonController {
             next(error)
         }
     }
+    static async studentlessondetail(req, res, next) {
+        try {
+            const { ClassId } = req.params
+            const { day } = req.query
+            if (!day || !ClassId) throw { name: `notFound` }
+            const data = await Schedule.findAll({ include: { model: Lesson }, where: { day, ClassId } })
+            if (data.length == 0) throw { name: `notFound` }
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
     static async addLesson(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const { name } = req.body
             if (!name) throw { name: `lesson error` }
             let slug = Slug(name)
             const data = await Lesson.create({ name, slug })
-            res.status(201).json(data)
+
+            const history = await History.create({ description: `lesson with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+            res.status(201).json({ data, history })
         } catch (error) {
             next(error)
         }
     }
     static async deleteLesson(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const id = req.params.id
             const check = await Lesson.findByPk(id)
             if (!check) throw { name: `notFound` }
             const data = await Lesson.destroy({ where: { id } })
+            const history = await History.create({ description: `lesson with name ${check.name} has been deleted`, createdBy: teacherClass.Teacher.name })
             res.status(200).json({ message: "Success delete" })
         } catch (error) {
             next(error)
@@ -46,6 +65,8 @@ class LessonController {
     }
     static async editLesson(req, res, next) {
         try {
+            const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
             const { name } = req.body
             if (!name) throw { name: `lesson error` }
             let slug = Slug(name)
@@ -54,8 +75,8 @@ class LessonController {
             if (!check) throw { name: `notFound` }
 
             const data = await Lesson.update({ name, slug }, { where: { id } })
-
-            res.status(201).json({ status: `success` })
+            const history = await History.create({ description: `lesson with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+            res.status(201).json({ status: `success`, history })
         } catch (error) {
             next(error)
         }

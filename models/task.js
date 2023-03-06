@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Assignment extends Model {
+  class Task extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Assignment.hasMany(models.Score);
+      Task.belongsTo(models.Class);
     }
   }
-  Assignment.init(
+  Task.init(
     {
       name: {
         type: DataTypes.STRING,
@@ -20,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: `name is required` },
           notEmpty: { msg: `name is required` },
+        }
+      },
+      ClassId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `ClassId is required` },
+          notEmpty: { msg: `ClassId is required` },
+          isNumeric: { msg: `ClassId must be a number` }
         }
       },
       desc: {
@@ -30,20 +39,11 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { msg: `desc is required` },
         }
       },
-      ClassId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notNull: { msg: `ClassId is required` },
-          notEmpty: { msg: `ClassId is required` },
-          isNumeric: { msg: `ClassId must be a number` },
-        }
-      },
     },
     {
       sequelize,
-      modelName: 'Assignment',
+      modelName: 'Task',
     }
   );
-  return Assignment;
+  return Task;
 };
