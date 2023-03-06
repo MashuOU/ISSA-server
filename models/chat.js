@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       message: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: { msg: 'Message is required' },

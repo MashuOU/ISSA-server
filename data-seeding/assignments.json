@@ -1,0 +1,22 @@
+[
+  {
+    "name": "UTS",
+    "type": "Exam",
+    "desc": "ujian tengah semester Mathematic"
+  },
+  {
+    "name": "Mathematic FPB & KPK",
+    "type": "Task",
+    "desc": "menyelesaikan soal FPB dan KPK"
+  },
+  {
+    "name": "UAS",
+    "type": "Exam",
+    "desc": "ujian akhir semester Science"
+  },
+  {
+    "name": "Science rantai makanan",
+    "type": "Task",
+    "desc": "menyelesaikan siklus rantai makanan"
+  }
+]

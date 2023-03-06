@@ -50,6 +50,15 @@ class StudentController {
           },
         ],
       });
+      // const scoreTask = data.Scores.filter((x) => x.assignmentType == 'Task').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreTask);
+      // const scoreExam = data.Scores.filter((x) => x.assignmentType == 'Exam').map((y) => {
+      //   return y.value * 0.45;
+      // });
+      // console.log(scoreExam);
+
       if (!data) {
         throw { name: 'notFound' };
       }
@@ -72,8 +81,8 @@ class StudentController {
     try {
       const id = req.params.id;
       const student = await Student.findByPk(id);
-      if (!student)  throw { name: 'notFound' };
-      
+      if (!student) throw { name: 'notFound' };
+
       const data = await Student.destroy({ where: { id } });
       res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list` });
     } catch (error) {
@@ -86,8 +95,8 @@ class StudentController {
       const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const id = req.params.id;
 
-      const check = await Student.findByPk(id)
-      if (!check) throw { name: `notFound` }
+      const check = await Student.findByPk(id);
+      if (!check) throw { name: `notFound` };
       const data = await Student.update(
         {
           NIM,
