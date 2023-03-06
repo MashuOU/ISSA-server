@@ -15,8 +15,32 @@ module.exports = (sequelize, DataTypes) => {
   }
   Schedule.init(
     {
-      ClassId: DataTypes.INTEGER,
-      day: DataTypes.STRING,
+      ClassId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `ClassId is required` },
+          notEmpty: { msg: `ClassId is required` },
+          isNumeric: { msg: `ClassId must be a number` }
+        }
+      },
+      LessonId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `LessonId is required` },
+          notEmpty: { msg: `LessonId is required` },
+          isNumeric: { msg: `LessonId must be a number` }
+        }
+      },
+      day: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `day is required` },
+          notEmpty: { msg: `day is required` },
+        }
+      },
     },
     {
       sequelize,
