@@ -135,12 +135,11 @@ describe("post /attendances", () => {
     test("201 success add attendance", (done) => {
         request(app)
             .post("/attendances")
-            .send(bodyData)
             .set("access_token", validToken)
             .then((response) => {
                 const { body, status } = response;
 
-                expect(status).toBe(201);
+               ; expect(status).toBe(201)
                 expect(body).toHaveProperty("id", expect.any(Number));
                 expect(body).toHaveProperty("StudentId", expect.any(Number));
                 done();

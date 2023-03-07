@@ -1,4 +1,4 @@
-const { Student, Attendance, Transaction, Score, Lesson, Class, Teacher, Assignment, Schedule, Activity } = require('../models');
+const { Student, Attendance, Transaction, Score, Lesson, Class, Teacher, Assignment, Schedule, Activity, sequelize } = require('../models');
 
 class StudentController {
     static async allStudent(req, res, next) {
@@ -95,6 +95,21 @@ class StudentController {
         try {
             const data = await Transaction.findOne({ where: { StudentId: req.user.id } })
             res.status(200).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async statistic(req, res, next) {
+        try {
+            let query = `
+            select l."name" ,avg(s.value)from "Scores" s 
+            left join "Lessons" l on s."LessonId" = l.id 
+            where "StudentId" = ${req.user.id}
+            group by l."name" 
+            `
+            let data = await Score.sequelize.query(query)
+            res.status(200).json(data[0])
         } catch (error) {
             next(error)
         }
