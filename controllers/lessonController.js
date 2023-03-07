@@ -1,4 +1,4 @@
-const { Lesson, History, Teacher } = require('../models')
+const { Lesson, History, Teacher, Class, Schedule } = require('../models')
 const Slug = require('slug')
 
 class LessonController {
@@ -26,10 +26,10 @@ class LessonController {
         try {
             const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
 
-            const { name } = req.body
+            const { name, imgUrl, KKM, desc } = req.body
             if (!name) throw { name: `lesson error` }
             let slug = Slug(name)
-            const data = await Lesson.create({ name, slug })
+            const data = await Lesson.create({ name, imgUrl, KKM, desc, slug })
             const history = await History.create({ description: `lesson ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
             res.status(201).json({ data, history })
         } catch (error) {
@@ -64,7 +64,19 @@ class LessonController {
             const data = await Lesson.update({ name, slug }, { where: { id } })
             const history = await History.create({ description: `lesson ${check.name} has been edited`, createdBy: teacherClass.Teacher.name })
 
-            res.status(201).json({ status: `success`, history })
+            res.status(200).json({ status: `success`, history })
+        } catch (error) {
+            next(error)
+        }
+    }
+    static async studentlessondetail(req, res, next) {
+        try {
+            const { ClassId } = req.params
+            const { day } = req.query
+            if (!day || !ClassId) throw { name: `notFound` }
+            const data = await Schedule.findAll({ include: { model: Lesson }, where: { day, ClassId } })
+            if (data.length == 0) throw { name: `notFound` }
+            res.status(200).json(data)
         } catch (error) {
             next(error)
         }

@@ -26,7 +26,6 @@ class Controller {
 
             const { name, TeacherId, SPP } = req.body;
             const data = await Class.create({ name, TeacherId, SPP });
-
             const history = await History.create({ description: `Class ${data.name} has been created`, createdBy: teacherClass.Teacher.name });
 
             res.status(201).json({ data, history });
@@ -63,7 +62,7 @@ class Controller {
 
             const history = await History.create({ description: `Class ${check.name} has been edited`, createdBy: teacherClass.Teacher.name });
 
-            res.status(201).json({ data, history });
+            res.status(200).json({ data, history });
         } catch (error) {
             next(error);
         }
