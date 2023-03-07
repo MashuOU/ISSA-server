@@ -3,9 +3,12 @@ const { Sequelize, Op } = require("sequelize");
 
 class StudentController {
   static async allStudents(req, res, next) {
-    const {  pageIndex, ClassId } = req.query;
+    const { pageIndex, ClassId, name } = req.query;
     const paramQuerySQL = {
       include: [
+        {
+          model: Attendance
+        },
         {
           model: Class,
           include: {
@@ -28,10 +31,14 @@ class StudentController {
     let pageSize = 7;
 
     // filtering by category
-    if (ClassId !== '' && typeof ClassId !== 'undefined') {
+    if (ClassId !== '' && typeof ClassId !== 'undefined' && name !== '' && typeof name !== 'undefined') {
+      paramQuerySQL.where = {
+        ClassId: ClassId, name: { [Op.iLike]: `%${name}%` }
+      };
+    } else if (ClassId !== '' && typeof ClassId !== 'undefined' && name == '' && typeof name == 'undefined') {
       paramQuerySQL.where = {
         ClassId
-      };
+      }
     }
 
     // pagination
