@@ -1,6 +1,27 @@
 const { Attendance, Student, History, Teacher, Class } = require('../models');
 
 class AttendanceController {
+  static async allAttendance(req, res, next) {
+    try {
+      const { StudentId } = req.query
+      let query = {}
+      let data
+      if (StudentId !== '' && typeof StudentId !== 'undefined') {
+        query.where = {
+          StudentId
+        }
+        data = await Attendance.findAll(query)
+      } else {
+        data = await Attendance.findAll()
+
+      }
+      res.status(200).json(data)
+
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async addAttendance(req, res, next) {
     try {
       const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
