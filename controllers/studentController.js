@@ -15,9 +15,6 @@ class StudentController {
             },
           },
           {
-            model: Attendance,
-          },
-          {
             model: Score,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
             include: {

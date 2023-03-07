@@ -1,20 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const LessonController = require('../controllers/lessonController');
-const ActivityController = require('../controllers/activityController');
-const chatController = require('../controllers/chatController');
+const publicController = require("../controllers/publicController");
 
 const { userAuth } = require('../middlewares/authentication');
 
 // student n parent authentication
 router.use(userAuth);
-router.get('/lesson', LessonController.allLessons);
-router.get('/lesson/:id', LessonController.lessonById);
-router.get('/student/lesson/:ClassId', LessonController.studentlessondetail);
 
-router.get('/activity', ActivityController.allActivities);
-router.get('/activity/:id', ActivityController.activityById);
+router.get('/classmate', publicController.allStudent);
+router.get('/detail', publicController.studentById);
+router.get('/lesson', publicController.studentlessondetail);
+router.get('/schedule', publicController.schedules);
+router.get('/activity', publicController.allActivities);
+router.get('/transaction', publicController.transactionStatus);
 
+
+// router.get('/activity/:id', publicController.activityById);
 
 
 module.exports = router

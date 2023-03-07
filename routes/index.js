@@ -13,9 +13,10 @@ const classes = require('./class');
 const publicRouter = require('./public');
 const { teacherAuth } = require('../middlewares/authentication');
 
-router.use('/teachers', teacher);
-router.use('/users', user);
 router.use('/public', publicRouter)
+
+router.use('/users', user);
+router.use('/teachers', teacher);
 
 router.use(teacherAuth);
 
