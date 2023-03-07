@@ -36,7 +36,15 @@ class TeacherController {
     }
   }
 
+  static async allTeacher(req, res, next) {
+    try {
+      const data = await Teacher.findAll();
 
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
 }
 

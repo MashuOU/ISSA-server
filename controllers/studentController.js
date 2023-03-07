@@ -1,29 +1,64 @@
 const { Student, Attendance, Score, Lesson, Class, Teacher, Assignment, History } = require('../models');
+const { Sequelize, Op } = require("sequelize");
 
 class StudentController {
   static async allStudents(req, res, next) {
-    try {
-      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
-      const data = await Student.findAll({
-        where: { ClassId: teacherClass.id },
-        include: [
-          {
-            model: Class,
-            include: {
-              model: Teacher,
-              attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
-            },
+    const {  pageIndex, ClassId } = req.query;
+    const paramQuerySQL = {
+      include: [
+        {
+          model: Class,
+          include: {
+            model: Teacher,
+            attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
           },
-          {
-            model: Score,
+        },
+        {
+          model: Score,
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+          include: {
+            model: Lesson,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
-            include: {
-              model: Lesson,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
-            },
           },
-        ],
-      });
+        },
+      ],
+    };
+    let limit;
+    let offset;
+    let pageSize = 7;
+
+    // filtering by category
+    if (ClassId !== '' && typeof ClassId !== 'undefined') {
+      paramQuerySQL.where = {
+        ClassId
+      };
+    }
+
+    // pagination
+    if (pageSize !== '' && typeof pageSize !== 'undefined') {
+      if (pageSize !== '' && typeof pageSize !== 'undefined') {
+        limit = pageSize;
+        paramQuerySQL.limit = limit;
+      }
+
+      if (pageIndex !== '' && typeof pageIndex !== 'undefined') {
+        offset = pageIndex * limit - limit;
+        paramQuerySQL.offset = offset;
+      }
+    } else {
+      limit = 5 // limit 5 item
+      offset = 1;
+      paramQuerySQL.limit = limit;
+      paramQuerySQL.offset = offset;
+    }
+
+    try {
+
+      const data = await Student.findAndCountAll(paramQuerySQL)
+      if (pageSize || pageIndex) {
+        data.page = pageIndex
+        data.totalPages = Math.ceil(data.count / pageSize)
+      }
       res.status(200).json(data);
     } catch (error) {
       next(error);
