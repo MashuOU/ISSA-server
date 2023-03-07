@@ -1,4 +1,4 @@
-const { Activity, Teacher, History } = require('../models')
+const { Activity, Teacher, History, Class } = require('../models')
 
 class ActivityController {
     static async allActivities(req, res, next) {
@@ -59,7 +59,7 @@ class ActivityController {
             const data = await Activity.update({ name, date }, { where: { id } })
             const history = await History.create({ description: `activity ${data.name} has been edited`, createdBy: teacherClass.Teacher.name })
 
-            res.status(201).json({ data, history })
+            res.status(200).json({ data, history })
         } catch (error) {
             next(error)
         }

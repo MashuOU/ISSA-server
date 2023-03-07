@@ -7,10 +7,11 @@ async function teacherAuth(req, res, next) {
     if (!access_token) throw { name: `unAuthentication` };
 
     let payload = decodeToken(access_token);
+    console.log(payload,'<><><><><><><><><><><>');
     let teacher = await Teacher.findOne({ where: { NIP: payload } });
     if (!teacher) throw { name: `unAuthentication` };
     req.user = {
-      idTeacher: teacher.id,
+      idTeacher: teacher.id,  
     };
     next();
   } catch (error) {

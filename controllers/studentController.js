@@ -53,6 +53,9 @@ class StudentController {
           },
         ],
       });
+      if (!data) {
+        throw { name: 'notFound' };
+      }
       // const scoreExam = data.Scores.filter((x) => x.Assignment.type == 'Exam').map((y) => {
       //   return y.value * 0.45;
       // });
@@ -66,9 +69,6 @@ class StudentController {
       // });
       // console.log(scoreExam);
 
-      if (!data) {
-        throw { name: 'notFound' };
-      }
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -125,7 +125,7 @@ class StudentController {
       );
       const history = await History.create({ description: `student with name ${check.name} has been edited`, createdBy: teacherClass.Teacher.name })
 
-      res.status(201).json({ status: `updated`, history });
+      res.status(200).json({ status: `updated`, history });
     } catch (error) {
       next(error);
     }

@@ -38,7 +38,7 @@ beforeAll((done) => {
                 [
 
                     {
-                        "id": 1,
+                        "id": 5,
                         "name": "1A",
                         "TeacherId": 1,
                         "SPP": 200000,
@@ -46,7 +46,7 @@ beforeAll((done) => {
                         "updatedAt": new Date()
                     },
                     {
-                        "id": 2,
+                        "id": 10,
                         "name": "2B",
                         "TeacherId": 2,
                         "SPP": 250000,
@@ -68,7 +68,7 @@ beforeAll((done) => {
                         "birthDate": "2002-10-03",
                         "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
                         "imgUrl": "http://s.sim.siap-online.com//upload/siswa/203270392571CDD3961D.190204115415.jpg",
-                        "ClassId": 1,
+                        "ClassId": 5,
                         "createdAt": new Date(),
                         "updatedAt": new Date()
                     },
@@ -80,7 +80,7 @@ beforeAll((done) => {
                         "birthDate": "2002-07-13",
                         "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
                         "imgUrl": "http://s.sim.siap-online.com//upload/siswa/2032703927C644342614.190204115307.jpg",
-                        "ClassId": 1,
+                        "ClassId": 5,
                         "createdAt": new Date(),
                         "updatedAt": new Date()
                     },
@@ -92,7 +92,7 @@ beforeAll((done) => {
                         "birthDate": "2002-7-13",
                         "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
                         "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsd4MuCmtvUgVWfpakuSsassRMc4e7xqLQRB3IZzMWrRUQOvRv8gVVtsQdgMLXmu_pJw&usqp=CAU",
-                        "ClassId": 1,
+                        "ClassId": 5,
                         "createdAt": new Date(),
                         "updatedAt": new Date()
                     },
@@ -125,10 +125,10 @@ afterAll(done => {
         });
 });
 
-describe("GET /students", () => {
-    test("200 success get student", (done) => {
+describe("GET /class", () => {
+    test("200 success get class", (done) => {
         request(app)
-            .get("/students")
+            .get("/classes")
             .set("access_token", validToken)
             .then((response) => {
                 const { body, status } = response;
@@ -144,15 +144,18 @@ describe("GET /students", () => {
             });
     });
 
-    test("401 get heroes with invalid token", (done) => {
+    test("200 success get class by id", (done) => {
         request(app)
-            .get("/students")
-            .set("access_token", invalidToken)
+            .get("/classes/5")
+            .set("access_token", validToken)
             .then((response) => {
                 const { body, status } = response;
 
-                expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
+                expect(status).toBe(200);
+                expect(body).toHaveProperty("id", expect.any(Number));
+                expect(body).toHaveProperty("SPP", expect.any(Number));
+                expect(body).toHaveProperty("TeacherId", expect.any(Number));
+                expect(body).toHaveProperty("name", expect.any(String));
                 done();
             })
             .catch((err) => {
@@ -160,125 +163,30 @@ describe("GET /students", () => {
                 done(err);
             });
     });
-
-    test("401 get heroes without token", (done) => {
-        request(app)
-            .get("/students")
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
 });
 
-describe("GET /Student/:id", () => {
-    test("200 success get student", (done) => {
+describe("POST /classes", () => {
+    let bodyData = {
+        "name": "1A",
+        "TeacherId": 1,
+        "SPP": 200000,
+        "createdAt": new Date(),
+        "updatedAt": new Date()
+    }
+
+    test("201 success POST classes", (done) => {
         request(app)
-            .get("/students/1")
-            .set("access_token", validToken)
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(200);
-                expect(body).toHaveProperty("id", expect.any(Number));
-                expect(body).toHaveProperty("NIM", expect.any(String));
-                expect(body).toHaveProperty("age", expect.any(Number));
-                expect(body).toHaveProperty("gender", expect.any(String));
-                expect(body).toHaveProperty("birthDate", expect.any(String));
-                expect(body).toHaveProperty("feedback", expect.any(String));
-                expect(body).toHaveProperty("ClassId", expect.any(Number));
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-
-    test("401 get student with invalid token", (done) => {
-        request(app)
-            .get("/students/1")
-            .set("access_token", invalidToken)
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-   
-    test("404 get student with no valid id", (done) => {
-        request(app)
-            .get("/students/100")
-            .set("access_token", validToken)
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(404);
-                expect(body).toHaveProperty("msg", "Data Not Found");
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-
-    test("401 get student without token", (done) => {
-        request(app)
-            .get("/students/1")
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-});
-
-describe("POST /student", () => {
-    test("201 success POST student", (done) => {
-        let bodyData = {
-            "NIM": "0203202303",
-            "name": "Beni Habibie",
-            "age": 9,
-            "gender": "Male",
-            "birthDate": "2002-7-13",
-            "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
-            "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsd4MuCmtvUgVWfpakuSsassRMc4e7xqLQRB3IZzMWrRUQOvRv8gVVtsQdgMLXmu_pJw&usqp=CAU",
-            "ClassId": 1,
-            "createdAt": new Date(),
-            "updatedAt": new Date()
-        }
-        request(app)
-            .post(`/students`)
+            .post(`/classes`)
             .set("access_token", validToken)
             .send(bodyData)
             .then((response) => {
                 const { body, status } = response;
 
                 expect(status).toBe(201);
+                expect(body.data).toHaveProperty("SPP", expect.any(Number));
+                expect(body.data).toHaveProperty("TeacherId", expect.any(Number));
                 expect(body.data).toHaveProperty("id", expect.any(Number));
-                expect(body.data).toHaveProperty("NIM", expect.any(String));
                 expect(body.data).toHaveProperty("name", expect.any(String));
-                expect(body.data).toHaveProperty("imgUrl", expect.any(String));
-                expect(body.data).toHaveProperty("age", expect.any(Number));
-                expect(body.data).toHaveProperty("gender", expect.any(String));
-                expect(body.data).toHaveProperty("birthDate", expect.any(String));
-                expect(body.data).toHaveProperty("feedback", expect.any(String));
-                expect(body.data).toHaveProperty("ClassId", expect.any(Number));
                 done();
             })
             .catch((err) => {
@@ -286,16 +194,15 @@ describe("POST /student", () => {
                 done(err);
             });
     });
-
-    test("401 POST student invalid token", (done) => {
+    test("401 failed POST classes", (done) => {
         request(app)
-            .post(`/students`)
+            .post(`/classes`)
             .set("access_token", invalidToken)
+            .send(bodyData)
             .then((response) => {
                 const { body, status } = response;
 
                 expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
                 done();
             })
             .catch((err) => {
@@ -303,28 +210,41 @@ describe("POST /student", () => {
             });
     });
 
-    test("401 POST student without Token", (done) => {
+    test("401 failed POST classes", (done) => {
         request(app)
-            .post(`/students`)
+            .post(`/classes`)
+            .send(bodyData)
             .then((response) => {
                 const { body, status } = response;
 
                 expect(status).toBe(401);
-                expect(body).toHaveProperty("msg", "Invalid Token");
                 done();
             })
             .catch((err) => {
                 done(err);
             });
     });
-
-})
-
-describe("Delete /student", () => {
-
-    test("200 success delete student", (done) => {
+    test("400 failed POST classes", (done) => {
         request(app)
-            .delete(`/students/2`)
+            .post(`/classes`)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+});
+
+describe("Delete /classes", () => {
+
+    test("200 success delete classes", (done) => {
+        request(app)
+            .delete(`/classes/5`)
             .set("access_token", validToken)
             .then((response) => {
                 const { body, status } = response;
@@ -338,39 +258,19 @@ describe("Delete /student", () => {
             });
     });
 
-    test("404 failed delete student", (done) => {
-        request(app)
-            .delete(`/students/200`)
-            .set("access_token", validToken)
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(404);
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-
 });
 
-describe("update /student", () => {
+describe("update /classes", () => {
     let bodyData = {
-        "NIM": "0203202303",
-        "name": "Beni Habibie",
-        "age": 9,
-        "gender": "female",
-        "birthDate": "2002-7-13",
-        "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
-        "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsd4MuCmtvUgVWfpakuSsassRMc4e7xqLQRB3IZzMWrRUQOvRv8gVVtsQdgMLXmu_pJw&usqp=CAU",
-        "ClassId": 1,
+        "name": "1A",
+        "TeacherId": 1,
+        "SPP": 200000,
         "createdAt": new Date(),
         "updatedAt": new Date()
     }
-    test("200 success update student", (done) => {
+    test("200 success update classes", (done) => {
         request(app)
-            .put(`/students/1`)
+            .put(`/classes/10`)
             .send(bodyData)
             .set("access_token", validToken)
             .then((response) => {

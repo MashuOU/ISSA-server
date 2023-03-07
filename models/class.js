@@ -16,9 +16,30 @@ module.exports = (sequelize, DataTypes) => {
   }
   Class.init(
     {
-      name: DataTypes.STRING,
-      TeacherId: DataTypes.INTEGER,
-      SPP: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `name is required` },
+          notEmpty: { msg: `name is required` },
+        }
+      },
+      TeacherId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `TeacherId is required` },
+          notEmpty: { msg: `TeacherId is required` },
+        }
+      },
+      SPP: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: `SPP is required` },
+          notEmpty: { msg: `SPP is required` },
+        }
+      },
     },
     {
       sequelize,
