@@ -7,6 +7,7 @@ router.post('/login', TeacherController.login);
 
 router.use(teacherAuth);
 
+router.get('/', TeacherController.allTeacher);
 router.post('/register', TeacherController.register);
 
 module.exports = router;
