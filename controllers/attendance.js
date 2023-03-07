@@ -1,8 +1,10 @@
-const { Attendance, Student } = require('../models');
+const { Attendance, Student, History, Teacher } = require('../models');
 
 class AttendanceController {
   static async addAttendance(req, res, next) {
     try {
+      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
       const { StudentId, status } = req.body;
       const check = await Student.findByPk(StudentId);
       if (!check) throw { name: `notFound` };
@@ -19,7 +21,8 @@ class AttendanceController {
       // console.log(result, now);
 
       if (result == now) throw { name: `absentError` };
-      const data = await Attendance.create({ StudentId, status });
+      const history = await History.create({ description: `attendance ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+      const data = await Attendance.create({ StudentId, status, history });
       res.status(201).json(data);
     } catch (error) {
       next(error);

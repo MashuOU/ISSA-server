@@ -1,4 +1,4 @@
-const { Student, Attendance, Score, Lesson, Class, Teacher, Assignment } = require('../models');
+const { Student, Attendance, Score, Lesson, Class, Teacher, Assignment, History } = require('../models');
 
 class StudentController {
   static async allStudents(req, res, next) {
@@ -75,30 +75,36 @@ class StudentController {
     }
   }
   static async addStudent(req, res, next) {
-    const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
     try {
+      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
       const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const data = await Student.create({ NIM, name, age, gender, birthDate, feedback, ClassId: teacherClass.id, imgUrl });
-      res.status(201).json(data);
+      const history = await History.create({ description: `student with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+      res.status(201).json({ data, history });
     } catch (error) {
       next(error);
     }
   }
   static async deleteStudent(req, res, next) {
     try {
+      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
       const id = req.params.id;
       const student = await Student.findByPk(id);
       if (!student) throw { name: 'notFound' };
 
       const data = await Student.destroy({ where: { id } });
-      res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list` });
+      const history = await History.create({ description: `student with name ${data.name} has been deleted`, createdBy: teacherClass.Teacher.name })
+      res.status(200).json({ message: `Student with NIM ${student.NIM} success delete from list`, history });
     } catch (error) {
       next(error);
     }
   }
   static async editStudent(req, res, next) {
-    const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher } });
     try {
+      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
       const { NIM, name, age, gender, birthDate, feedback, imgUrl } = req.body;
       const id = req.params.id;
 
@@ -117,8 +123,9 @@ class StudentController {
         },
         { where: { id } }
       );
+      const history = await History.create({ description: `student with name ${check.name} has been edited`, createdBy: teacherClass.Teacher.name })
 
-      res.status(201).json({ status: `updated` });
+      res.status(201).json({ status: `updated`, history });
     } catch (error) {
       next(error);
     }
