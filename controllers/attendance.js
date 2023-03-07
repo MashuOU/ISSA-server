@@ -29,20 +29,32 @@ class AttendanceController {
     }
   }
 
-  // static async editAttendance(req, res, next) {
-  //   try {
-  //     const { StudentId, status } = req.body;
-  //     const check = await Student.findByPk(StudentId)
-  //     if (!check) throw { name: `notFound` }
+  static async editAttendance(req, res, next) {
+    try {
+      const { StudentId, status } = req.body;
+      console.log(req.body);
 
-  //     const attendance = await Attendance.findAll({ where: { id: StudentId } })
+      const check = await Student.findOne({ where: { id: StudentId }, include: Attendance });
+      if (!check) throw { name: `notFound` };
 
-  //     if (attendance[0].createdAt.getDay() == new Date().getDay()) throw { name: `absentError` }
-  //     const data = await Attendance.create({ StudentId, status });
-  //     res.status(201).json(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      const lastIndex = check.Attendances.length - 1;
+      const attendanceId = check.Attendances[lastIndex].id;
+      console.log(check);
+      const data = await Attendance.update(
+        { status: status },
+        {
+          where: {
+            id: attendanceId,
+          },
+        }
+      );
+
+      const result = check.Attendances[lastIndex];
+
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 module.exports = AttendanceController;

@@ -9,6 +9,7 @@ const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
 const schedule = require('./schedule');
+const classes = require('./class');
 
 router.use('/teachers', teacher);
 router.use('/users', user);
@@ -19,6 +20,7 @@ router.use('/activities', activity);
 router.use('/attendances', attendance);
 router.use('/schedules', schedule);
 router.use('/chats', chat);
+router.use('/classes', teacher);
 
 router.get('/', (req, res) => {
   res.send(`
