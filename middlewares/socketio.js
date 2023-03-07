@@ -1,9 +1,10 @@
 const { Server } = require('socket.io');
-
-let io;
+const axios = require('axios');
 const users = {};
+
+const { Chat } = require('../models');
 function connIOServer(server) {
-  io = new Server(server, {
+  const io = new Server(server, {
     cors: {
       origin: '*',
     },
@@ -11,20 +12,23 @@ function connIOServer(server) {
 
   io.on('connection', (socket) => {
     socket.on('join:room', (room) => {
-      // console.log("joining room ", socket.id);
       socket.join(room);
     });
-    socket.on('chat:msg', (data) => {
-      // console.log(data.msg, " inside room");
-      // io.emit("resp:msg", data.msg)
-      io.in(data.room).emit('resp:msg', data.msg);
-    });
-    console.log('connects!!!');
-    // socket.on("chat message", (data) => {
-    //     io.to(users[data.room]).emit("resp", data);
-    // })
-    socket.on('disconnect', () => {
-      console.log('disconnect');
+
+    socket.on('chat:msg', async (data) => {
+      console.log(data, 'dataaaa');
+      try {
+        const newChat = await Chat.create({
+          fromUserId: data.from,
+          roomId: data.room,
+          toUserId: data.to,
+          message: data.msg.message,
+        });
+        const chat = await Chat.findAll({ where: { roomId: data.room } });
+        io.in(data.room).emit('resp:msg', chat);
+      } catch (err) {
+        console.log(err);
+      }
     });
   });
 }
