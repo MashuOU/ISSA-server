@@ -26,6 +26,9 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade',
       },
+      email: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
