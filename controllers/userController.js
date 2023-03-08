@@ -9,6 +9,10 @@ class UserController {
 
       const data = await User.findOne({
         where: { NIM },
+        include: {
+          model: Student,
+          include: { model: Class },
+        },
       });
       if (!data) {
         throw { name: 'loginError' };
@@ -19,7 +23,7 @@ class UserController {
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIM);
-          res.status(200).json({ access_token, id: data.id });
+          res.status(200).json({ access_token, id: data.id, teacherId: data.Student.Class.TeacherId });
         }
       }
     } catch (error) {
