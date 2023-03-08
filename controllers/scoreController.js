@@ -5,13 +5,19 @@ class ScoreController {
         try {
             const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
 
-            const { StudentId, LessonId, value, AssignmentId, desc, status,  } = req.body
+            const { StudentId, LessonId, value, AssignmentId, desc } = req.body
+            let status
+            if (value >= 70) {
+                status = true
+            } else {
+                status = false
+            }
 
             const checkStudent = await Student.findByPk(StudentId)
             const checkLesson = await Lesson.findByPk(LessonId)
             if (!checkStudent || !checkLesson) throw { name: `notFound` }
 
-            const data = await Score.create({ StudentId, LessonId, value, AssignmentId, desc, status,  })
+            const data = await Score.create({ StudentId, LessonId, value, AssignmentId, desc, status })
             const history = await History.create({ description: `Score ${checkStudent.name} lesson ${checkLesson.name} has been created`, createdBy: teacherClass.Teacher.name })
             res.status(201).json({ data, history })
         } catch (error) {
@@ -22,7 +28,7 @@ class ScoreController {
     static async editScore(req, res, next) {
         try {
             const { StudentId, LessonId, value } = req.body
-            console.log(StudentId, LessonId, value,'<>>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(StudentId, LessonId, value, '<>>>>>>>>>>>>>>>>>>>>>>>>>');
             const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
 
             const checkStudent = await Student.findByPk(StudentId)

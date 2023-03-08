@@ -8,6 +8,7 @@ const activity = require('./activity');
 const attendance = require('./attendance');
 const score = require('./score');
 const chat = require('./chat');
+const assignment = require('./assignment')
 const schedule = require('./schedule');
 const classes = require('./class');
 const publicRouter = require('./public');
@@ -22,6 +23,7 @@ router.use('/teachers', teacher);
 router.use(teacherAuth);
 
 router.use('/students', student);
+router.use('/assignments', assignment)
 router.use('/lessons', lesson);
 router.use('/scores', score);
 router.use('/activities', activity);
