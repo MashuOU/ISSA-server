@@ -28,11 +28,6 @@ class HistoryController {
                     offset = pageIndex * limit - limit;
                     query.offset = offset;
                 }
-            } else {
-                limit = 5 // limit 5 item
-                offset = 1;
-                query.limit = limit;
-                query.offset = offset;
             }
             const data = await History.findAndCountAll(query)
             if (pageSize || pageIndex) {

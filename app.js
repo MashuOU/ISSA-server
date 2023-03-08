@@ -24,15 +24,15 @@ const httpServer = createServer(app);
 
 connIOServer(httpServer);
 
-httpServer.listen(port, () => {
-  console.log(
-    `
-==========================================
- 🚀  ISSA SERVER launch on port ${port}  🚀
-==========================================
-    `
-  );
-});
+// httpServer.listen(port, () => {
+//   console.log(
+//     `
+// ==========================================
+//  🚀  ISSA SERVER launch on port ${port}  🚀
+// ==========================================
+//     `
+//   );
+// });
 
 app.use(errorHandler);
 
