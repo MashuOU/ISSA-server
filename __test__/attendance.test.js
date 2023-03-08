@@ -128,18 +128,19 @@ afterAll(done => {
 
 describe("post /attendances", () => {
     let bodyData = {
-        "StudentId": "1",
+        "StudentId": "2",
         "status": "hadir",
         "date": "2023-03-05"
     }
     test("201 success add attendance", (done) => {
         request(app)
             .post("/attendances")
+            .send(bodyData)
             .set("access_token", validToken)
             .then((response) => {
                 const { body, status } = response;
 
-               ; expect(status).toBe(201)
+                expect(status).toBe(201)
                 expect(body).toHaveProperty("id", expect.any(Number));
                 expect(body).toHaveProperty("StudentId", expect.any(Number));
                 done();

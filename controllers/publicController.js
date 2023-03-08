@@ -67,6 +67,7 @@ class StudentController {
             if (data.length == 0) throw { name: `notFound` }
             res.status(200).json(data)
         } catch (error) {
+            console.log(error);
             next(error)
         }
     }
