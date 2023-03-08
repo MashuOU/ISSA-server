@@ -5,9 +5,11 @@ class TeacherController {
   static async login(req, res, next) {
     try {
       const { NIP, password } = req.body;
-      if (!NIP || !password) throw { name: `loginError` }
+      if (!NIP || !password) throw { name: `loginError` };
 
       const data = await Teacher.findOne({ where: { NIP } });
+      const kelas = await Class.findOne({ where: { TeacherId: data.id } });
+      console.log(kelas, 'kelassss');
       if (!data) {
         throw { name: 'loginError' };
       } else {
@@ -16,7 +18,7 @@ class TeacherController {
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIP);
-          res.status(200).json({ access_token, ClassId: data.id });
+          res.status(200).json({ id: data.id, access_token, ClassId: kelas.id });
         }
       }
     } catch (error) {
@@ -31,9 +33,8 @@ class TeacherController {
       const { NIP, password, name } = req.body;
       console.log(NIP);
       const data = await Teacher.create({ NIP, password, name });
-      const history = await History.create({ description: `Teacher with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
-      res.status(201).json({ msg: `succesfuly registered`, history })
-
+      const history = await History.create({ description: `Teacher with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name });
+      res.status(201).json({ msg: `succesfuly registered`, history });
     } catch (error) {
       next(error);
     }
@@ -48,7 +49,6 @@ class TeacherController {
       next(error);
     }
   }
-
 }
 
 module.exports = TeacherController;
