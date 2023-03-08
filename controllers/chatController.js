@@ -1,10 +1,11 @@
-const { Chat, User, sequelize } = require('../models');
+const { Chat, User, Student, sequelize } = require('../models');
 const { Op, Sequelize } = require('sequelize');
 const { QueryTypes } = require('sequelize');
 
 class chatController {
   static getMessageHistory = async (req, res) => {
     const { from, to } = req.params;
+
     try {
       let getMsg;
       getMsg = await Chat.findAll({
@@ -14,6 +15,7 @@ class chatController {
             { fromUserId: +to, toUserId: +from },
           ],
         },
+        order: [['createdAt', 'ASC']],
       });
       if (!getMsg) throw { name: 'Not found' };
       res.status(200).json(getMsg);
@@ -49,19 +51,25 @@ class chatController {
         where: {
           toUserId: +toId,
         },
-        attributes: [[Sequelize.fn('MAX', Sequelize.col('id')), 'id'], 'toUserId', 'roomId'],
-        group: ['toUserId', 'roomId'],
+        attributes: [[Sequelize.fn('MAX', Sequelize.col('id')), 'id'], 'fromUserId', 'roomId'],
+        group: ['fromUserId', 'roomId'],
+        order: [['fromUserId', 'ASC']],
       });
-      // let chatUsersToTeacher = await sequelize.query(`SELECT DISTINCT toUserId FROM Chats WHERE toUserId = ${+toId} ORDER BY toUserId`);
-      // console.log(chatUsersToTeacher);
-      // let users = await User.findAll();
-      // let senders = allUsers.map((x) => {
-      //   console.log(x.toUserId);
-      //   return users.find((y) => y.id == x.toUserId);
-      // });
-      // console.log(senders);
 
       if (!allUsers || allUsers.length === 0) throw { name: 'Not found' };
+
+      let users = await User.findAll({
+        attributes: ['id'],
+        include: {
+          model: Student,
+          attributes: ['name'],
+        },
+      });
+
+      allUsers.forEach((el) => {
+        el.dataValues.parentName = users.filter((x) => x.id == el.fromUserId);
+      });
+
       res.status(200).json(allUsers);
     } catch (err) {
       console.log(err);

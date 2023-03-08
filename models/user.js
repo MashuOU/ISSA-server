@@ -4,7 +4,9 @@ const { hashPassword } = require('../helpers');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate(models) {}
+    static associate(models) {
+      User.belongsTo(models.Student);
+    }
   }
   User.init(
     {

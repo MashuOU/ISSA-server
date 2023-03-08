@@ -38,7 +38,6 @@ class TransactionController {
         console.log(transactionToken);
         res.status(201).json({ transactionToken });
       });
-      console.log(student);
       sendMail(student);
     } catch (error) {
       next(error);

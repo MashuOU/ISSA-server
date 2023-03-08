@@ -7,17 +7,20 @@ const lesson = require('./lesson');
 const activity = require('./activity');
 const attendance = require('./attendance');
 const score = require('./score');
-const chat = require('./chat');
+const chatTeacher = require('./chatTeacher');
+const chatParent = require('./chatParent');
 const schedule = require('./schedule');
 const classes = require('./class');
 const publicRouter = require('./public');
-const history = require('./history')
-const { teacherAuth } = require('../middlewares/authentication');
+const history = require('./history');
+const { teacherAuth, userAuth } = require('../middlewares/authentication');
 
-router.use('/public', publicRouter)
+router.use('/public', publicRouter);
 
 router.use('/users', user);
 router.use('/teachers', teacher);
+router.use('/chatTeacher', teacherAuth, chatTeacher);
+router.use('/chatParent', userAuth, chatParent);
 
 router.use(teacherAuth);
 
@@ -27,7 +30,6 @@ router.use('/scores', score);
 router.use('/activities', activity);
 router.use('/attendances', attendance);
 router.use('/schedules', schedule);
-router.use('/chats', chat);
 router.use('/histories', history);
 router.use('/classes', classes);
 
