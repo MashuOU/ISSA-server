@@ -33,6 +33,9 @@ async function userAuth(req, res, next) {
     };
     next();
   } catch (error) {
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
     next(error);
   }
 }

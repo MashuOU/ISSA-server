@@ -134,8 +134,8 @@ describe("GET /students", () => {
                 const { body, status } = response;
 
                 expect(status).toBe(200);
-                expect(Array.isArray(body)).toBeTruthy();
-                expect(body.length).toBeGreaterThan(0);
+                expect(Array.isArray(body.rows)).toBeTruthy();
+                expect(body.rows.length).toBeGreaterThan(0);
                 done();
             })
             .catch((err) => {
@@ -215,7 +215,7 @@ describe("GET /Student/:id", () => {
                 done(err);
             });
     });
-   
+
     test("404 get student with no valid id", (done) => {
         request(app)
             .get("/students/100")

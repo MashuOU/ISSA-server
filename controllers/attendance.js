@@ -50,14 +50,12 @@ class AttendanceController {
   static async editAttendance(req, res, next) {
     try {
       const { StudentId, status } = req.body;
-      console.log(req.body);
 
       const check = await Student.findOne({ where: { id: StudentId }, include: Attendance });
       if (!check) throw { name: `notFound` };
 
       const lastIndex = check.Attendances.length - 1;
       const attendanceId = check.Attendances[lastIndex].id;
-      console.log(check);
       const data = await Attendance.update(
         { status: status },
         {
