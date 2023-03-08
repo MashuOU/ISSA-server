@@ -5,7 +5,7 @@ class UserController {
   static async login(req, res, next) {
     try {
       const { NIM, password } = req.body;
-      if (!NIM || !password) throw { name: `loginError` }
+      if (!NIM || !password) throw { name: `loginError` };
 
       const data = await User.findOne({
         where: { NIM },
@@ -19,7 +19,7 @@ class UserController {
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIM);
-          res.status(200).json({ access_token });
+          res.status(200).json({ access_token, id: data.id });
         }
       }
     } catch (error) {
