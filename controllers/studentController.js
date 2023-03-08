@@ -35,11 +35,16 @@ class StudentController {
       paramQuerySQL.where = {
         ClassId: ClassId, name: { [Op.iLike]: `%${name}%` }
       };
-    } else if (ClassId !== '' && typeof ClassId !== 'undefined' && name == '' && typeof name == 'undefined') {
+    } else if (ClassId !== '' && typeof ClassId !== 'undefined') {
       paramQuerySQL.where = {
         ClassId
       }
+    } else if (name !== "" && typeof name !== "undefined") {
+      paramQuerySQL.where = {
+        name: { [Op.iLike]: `%${name}%` },
+      };
     }
+
 
     // pagination
     if (pageSize !== '' && typeof pageSize !== 'undefined') {

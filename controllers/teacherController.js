@@ -1,5 +1,5 @@
 const { compareHash, createToken } = require('../helpers');
-const { Teacher } = require('../models');
+const { Teacher, Class, History } = require('../models');
 
 class TeacherController {
   static async login(req, res, next) {
@@ -16,7 +16,7 @@ class TeacherController {
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIP);
-          res.status(200).json({ access_token, id: data.id });
+          res.status(200).json({ access_token, ClassId: data.id });
         }
       }
     } catch (error) {
@@ -26,10 +26,13 @@ class TeacherController {
 
   static async register(req, res, next) {
     try {
+      const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
+
       const { NIP, password, name } = req.body;
       console.log(NIP);
       const data = await Teacher.create({ NIP, password, name });
-      res.status(201).json({ msg: `succesfuly registered` })
+      const history = await History.create({ description: `Teacher with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
+      res.status(201).json({ msg: `succesfuly registered`, history })
 
     } catch (error) {
       next(error);
