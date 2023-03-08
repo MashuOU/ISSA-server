@@ -48,12 +48,7 @@ class StudentController {
                     },
                 ],
             });
-            if (!data) {
-                throw { name: 'notFound' };
-            }
-            const scoreTask = data.Scores.filter((x) => x.Assignment.type == 'Task').map((y) => {
-                return y.value * 0.45;
-            });
+            if (!data) throw { name: `notFound` }
             res.status(200).json(data);
         } catch (error) {
             next(error);

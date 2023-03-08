@@ -2,13 +2,10 @@ const { Activity, Teacher, History, Class } = require('../models')
 
 class ActivityController {
     static async allActivities(req, res, next) {
-        try {
-            const data = await Activity.findAll()
-            res.status(200).json(data)
-        } catch (error) {
-            next(error)
-        }
+        const data = await Activity.findAll()
+        res.status(200).json(data)
     }
+    
     static async activityById(req, res, next) {
         try {
             const id = req.params.id

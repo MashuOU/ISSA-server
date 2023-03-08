@@ -173,6 +173,22 @@ describe("GET /lessons", () => {
                 done(err);
             });
     });
+
+    test("404 failed get lessons by id", (done) => {
+        request(app)
+            .get("/lessons/300")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                done();
+            })
+            .catch((err) => {
+                console.log(err);
+                done(err);
+            });
+    });
 });
 
 describe("POST /lessons", () => {
@@ -267,6 +283,21 @@ describe("Delete /classes", () => {
             });
     });
 
+    test("404 failed delete classes", (done) => {
+        request(app)
+            .delete(`/lessons/200`)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
 });
 
 describe("update /classes", () => {
@@ -288,6 +319,38 @@ describe("update /classes", () => {
 
                 expect(status).toBe(200);
                 expect(body).toHaveProperty("history.description", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+    test("400 failed update classes", (done) => {
+        request(app)
+            .put(`/lessons/5`)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("404 failed update classes", (done) => {
+        request(app)
+            .put(`/lessons/500`)
+            .send(bodyData)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                expect(body).toHaveProperty("msg", expect.any(String));
                 done();
             })
             .catch((err) => {

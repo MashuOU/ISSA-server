@@ -142,7 +142,7 @@ afterAll(done => {
 });
 
 describe("GET /schedules", () => {
-    
+
     test("200 success get schedules", (done) => {
         request(app)
             .get("/schedules")
@@ -157,10 +157,26 @@ describe("GET /schedules", () => {
             })
             .catch((err) => {
                 done(err);
-                console.log(err);
             });
     });
-    
+
+
+    test("500 success get schedules", (done) => {
+        jest.spyOn(Schedule, "findAll").mockRejectedValue("Error")
+        request(app)
+            .get("/schedules")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(500);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
     test("401 failed get schedules", (done) => {
         request(app)
             .get("/schedules")

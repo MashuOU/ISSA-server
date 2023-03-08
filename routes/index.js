@@ -20,16 +20,18 @@ router.use('/users', user);
 router.use('/teachers', teacher);
 
 router.use(teacherAuth);
-
-router.use('/students', student);
-router.use('/lessons', lesson);
-router.use('/scores', score);
 router.use('/activities', activity);
 router.use('/attendances', attendance);
-router.use('/schedules', schedule);
+
 router.use('/chats', chat);
-router.use('/histories', history);
 router.use('/classes', classes);
+
+router.use('/histories', history);
+router.use('/lessons', lesson);
+router.use('/schedules', schedule);
+router.use('/scores', score);
+
+router.use('/students', student);
 
 router.get('/', (req, res) => {
   res.send(`

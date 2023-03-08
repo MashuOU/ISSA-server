@@ -11,6 +11,7 @@ class AttendanceController {
           StudentId
         }
         data = await Attendance.findAll(query)
+        if (data.length == 0) throw { name: `notFound` }
       } else {
         data = await Attendance.findAll()
 

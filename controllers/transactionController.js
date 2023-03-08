@@ -9,7 +9,7 @@ class TransactionController {
             const student = await Student.findOne({
                 where: { id: StudentId }, include: Class
             })
-            console.log(student.Class.SPP, ">>>>>");
+            if (!student) throw { name: `notFound` }
             const { NIM } = req.user
             let snap = new midtransClient.Snap({
                 // Set to true if you want Production Environment (accept real transaction).

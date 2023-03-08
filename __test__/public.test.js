@@ -496,7 +496,6 @@ describe("GET /student detail", () => {
     });
 
 
-
 });
 describe("GET /activity", () => {
 

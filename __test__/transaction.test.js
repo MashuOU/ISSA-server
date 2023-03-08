@@ -113,57 +113,28 @@ afterAll(done => {
 });
 
 describe("post /users", () => {
-    let bodyData = {
-        "NIM": "0203202301",
-        "password": "qwerty",
-    }
-    test("200 login", (done) => {
+    test("200 payment success", (done) => {
         request(app)
-            .post("/users/login")
-            .send(bodyData)
+            .post("/users/generate-midtrans/1")
+            .set("access_token", validToken2)
             .then((response) => {
                 const { body, status } = response;
 
-                expect(status).toBe(200);
-                expect(body).toHaveProperty("access_token", expect.any(String));
+                expect(status).toBe(201);
                 done();
             })
             .catch((err) => {
                 done(err);
             });
     });
-
-    test("400 login salah password", (done) => {
-        let salah = {
-            "NIM": "0203202301",
-            "password": "qwey",
-        }
+    test("404 payment failed", (done) => {
         request(app)
-            .post("/users/login")
-            .send(salah)
+            .post("/users/generate-midtrans/100")
+            .set("access_token", validToken2)
             .then((response) => {
                 const { body, status } = response;
 
-                expect(status).toBe(400);
-                done();
-            })
-            .catch((err) => {
-                done(err);
-            });
-    });
-
-    test("400 login salah NIM", (done) => {
-        let salah = {
-            "NIM": "0201",
-            "password": "qwey",
-        }
-        request(app)
-            .post("/users/login")
-            .send(salah)
-            .then((response) => {
-                const { body, status } = response;
-
-                expect(status).toBe(400);
+                expect(status).toBe(404);
                 done();
             })
             .catch((err) => {

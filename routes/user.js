@@ -7,7 +7,6 @@ const { userAuth } = require('../middlewares/authentication');
 router.post('/login', UserController.login);
 
 router.use(userAuth);
-router.get('/userChild', UserController.userChild);
 router.post('/generate-midtrans/:id', TransactionController.midtransToken)
 
 module.exports = router;

@@ -144,6 +144,7 @@ describe("GET /class", () => {
             });
     });
 
+
     test("200 success get class by id", (done) => {
         request(app)
             .get("/classes/5")
@@ -156,6 +157,22 @@ describe("GET /class", () => {
                 expect(body).toHaveProperty("SPP", expect.any(Number));
                 expect(body).toHaveProperty("TeacherId", expect.any(Number));
                 expect(body).toHaveProperty("name", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                console.log(err);
+                done(err);
+            });
+    });
+
+    test("404 success get class by id", (done) => {
+        request(app)
+            .get("/classes/500")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
                 done();
             })
             .catch((err) => {
@@ -258,6 +275,21 @@ describe("Delete /classes", () => {
             });
     });
 
+    test("404 success delete classes", (done) => {
+        request(app)
+            .delete(`/classes/500`)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
 });
 
 describe("update /classes", () => {
@@ -278,6 +310,29 @@ describe("update /classes", () => {
 
                 expect(status).toBe(200);
                 expect(body).toHaveProperty("history.description", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("404 success update classes", (done) => {
+        let salah = {
+            "name": "1A",
+            "TeacherId": 1,
+            "SPP": 200000,
+            "createdAt": new Date(),
+            "updatedAt": new Date()
+        }
+        request(app)
+            .put(`/classes/100`)
+            .send(salah)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
                 done();
             })
             .catch((err) => {

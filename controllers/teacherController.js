@@ -1,5 +1,5 @@
 const { compareHash, createToken } = require('../helpers');
-const { Teacher, Class, History } = require('../models');
+const { Teacher, Class } = require('../models');
 
 class TeacherController {
   static async login(req, res, next) {
@@ -29,10 +29,8 @@ class TeacherController {
       const teacherClass = await Class.findOne({ where: { TeacherId: req.user.idTeacher }, include: Teacher });
 
       const { NIP, password, name } = req.body;
-      console.log(NIP);
       const data = await Teacher.create({ NIP, password, name });
-      const history = await History.create({ description: `Teacher with name ${data.name} has been created`, createdBy: teacherClass.Teacher.name })
-      res.status(201).json({ msg: `succesfuly registered`, history })
+      res.status(201).json({ msg: `succesfuly registered` })
 
     } catch (error) {
       next(error);
@@ -40,13 +38,8 @@ class TeacherController {
   }
 
   static async allTeacher(req, res, next) {
-    try {
-      const data = await Teacher.findAll();
-
-      res.status(200).json(data);
-    } catch (error) {
-      next(error);
-    }
+    const data = await Teacher.findAll();
+    res.status(200).json(data);
   }
 
 }

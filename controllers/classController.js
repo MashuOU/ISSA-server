@@ -2,13 +2,9 @@ const { Class, History, Teacher } = require("../models");
 
 class Controller {
     static async fetchAllClass(req, res, next) {
-        try {
-            const data = await Class.findAll();
+        const data = await Class.findAll();
 
-            res.status(200).json(data);
-        } catch (error) {
-            next(error);
-        }
+        res.status(200).json(data);
     }
     static async fetchClassById(req, res, next) {
         const { classId } = req.params;

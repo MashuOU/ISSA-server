@@ -143,8 +143,43 @@ describe("GET /students", () => {
                 console.log(err);
             });
     });
+    test("200 success get student", (done) => {
+        request(app)
+            .get("/students?pageIndex=1&ClassId=1")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
 
-    test("401 get heroes with invalid token", (done) => {
+                expect(status).toBe(200);
+                expect(Array.isArray(body.rows)).toBeTruthy();
+                expect(body.rows.length).toBeGreaterThan(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+                console.log(err);
+            });
+    });
+    test("200 success get student", (done) => {
+        request(app)
+            .get("/students?name=a")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(200);
+                expect(Array.isArray(body.rows)).toBeTruthy();
+                expect(body.rows.length).toBeGreaterThan(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+                console.log(err);
+            });
+    });
+
+
+    test("401 failed get student with invalid token", (done) => {
         request(app)
             .get("/students")
             .set("access_token", invalidToken)
@@ -161,7 +196,7 @@ describe("GET /students", () => {
             });
     });
 
-    test("401 get heroes without token", (done) => {
+    test("401 failed get student without token", (done) => {
         request(app)
             .get("/students")
             .then((response) => {
@@ -286,6 +321,31 @@ describe("POST /student", () => {
                 done(err);
             });
     });
+    test("400 failed POST student", (done) => {
+        let bodyData = {
+            "gender": "Male",
+            "birthDate": "2002-7-13",
+            "feedback": "Sering terlambat dan tidak menyelesaikan pekerjaan rumah, diharapkan untuk berangkat lebih awal dari biasanya",
+            "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKsd4MuCmtvUgVWfpakuSsassRMc4e7xqLQRB3IZzMWrRUQOvRv8gVVtsQdgMLXmu_pJw&usqp=CAU",
+            "ClassId": 1,
+            "createdAt": new Date(),
+            "updatedAt": new Date()
+        }
+        request(app)
+            .post(`/students`)
+            .set("access_token", validToken)
+            .send(bodyData)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                done();
+            })
+            .catch((err) => {
+                console.log(err, '<><><><><><><><><><><><><><><><><>');
+                done(err);
+            });
+    });
 
     test("401 POST student invalid token", (done) => {
         request(app)
@@ -378,6 +438,22 @@ describe("update /student", () => {
 
                 expect(status).toBe(200);
                 expect(body).toHaveProperty("history.description", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+   
+    test("404 success update student", (done) => {
+        request(app)
+            .put(`/students/100`)
+            .send(bodyData)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
                 done();
             })
             .catch((err) => {

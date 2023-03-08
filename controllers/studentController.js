@@ -57,12 +57,7 @@ class StudentController {
         offset = pageIndex * limit - limit;
         paramQuerySQL.offset = offset;
       }
-    } else {
-      limit = 5 // limit 5 item
-      offset = 1;
-      paramQuerySQL.limit = limit;
-      paramQuerySQL.offset = offset;
-    }
+    } 
 
     try {
 
@@ -100,19 +95,6 @@ class StudentController {
       if (!data) {
         throw { name: 'notFound' };
       }
-      // const scoreExam = data.Scores.filter((x) => x.Assignment.type == 'Exam').map((y) => {
-      //   return y.value * 0.45;
-      // });
-      // console.log(scoreExam);
-      const scoreTask = data.Scores.filter((x) => x.Assignment.type == 'Task').map((y) => {
-        return y.value * 0.45;
-      });
-      console.log(scoreTask);
-      // const scoreExam = data.Scores.filter((x) => x.assignmentType == 'Exam').map((y) => {
-      //   return y.value * 0.45;
-      // });
-      // console.log(scoreExam);
-
       res.status(200).json(data);
     } catch (error) {
       next(error);

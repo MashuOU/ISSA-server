@@ -147,6 +147,23 @@ describe("GET /activities", () => {
                 done(err);
             });
     });
+
+    test("404 failed get activities by id", (done) => {
+        request(app)
+            .get("/activities/300")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                console.log(err);
+                done(err);
+            });
+    });
 });
 
 describe("POST /activities", () => {
@@ -169,7 +186,6 @@ describe("POST /activities", () => {
                 done();
             })
             .catch((err) => {
-                console.log(err, '<><><><><><><><><><><><><><><><><>');
                 done(err);
             });
     });
@@ -237,6 +253,22 @@ describe("Delete /activities", () => {
             });
     });
 
+    test("404 success delete activities", (done) => {
+        request(app)
+            .delete(`/activities/200`)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
 });
 
 describe("update /activities", () => {
@@ -255,6 +287,23 @@ describe("update /activities", () => {
 
                 expect(status).toBe(200);
                 expect(body).toHaveProperty("history.description", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("404 success update activities", (done) => {
+        request(app)
+            .put(`/activities/100`)
+            .send(bodyData)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                expect(body).toHaveProperty("msg", expect.any(String));
                 done();
             })
             .catch((err) => {

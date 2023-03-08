@@ -149,8 +149,75 @@ describe("post /attendances", () => {
                 done(err);
             });
     });
+    test("201 success add attendance", (done) => {
+        let salah = {
+            "StudentId": "100",
+            "status": "hadir",
+            "date": "2023-03-05"
+        }
+        request(app)
+            .post("/attendances")
+            .send(salah)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
 
+                expect(status).toBe(404)
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+});
+
+describe("get /attendances", () => {
+
+    test("200 get attendances", (done) => {
+        request(app)
+            .get("/attendances")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(200);
+                expect(Array.isArray(body)).toBeTruthy();
+                expect(body.length).toBeGreaterThan(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+                console.log(err);
+            });
+    });
+
+    test("404 get attendances with queries", (done) => {
+        request(app)
+            .get("/attendances?StudentId=100")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+                console.log(err);
+            });
+    });
+
+
+})
+
+describe("put /attendances", () => {
     test("200 edit attendances", (done) => {
+        let bodyData = {
+            "StudentId": "2",
+            "status": "hadir",
+            "date": "2023-03-05"
+        }
         request(app)
             .put("/attendances")
             .send(bodyData)
@@ -168,4 +235,28 @@ describe("post /attendances", () => {
                 console.log(err);
             });
     });
-});
+
+    test("200 edit attendances", (done) => {
+        let salah = {
+            "StudentId": "200",
+            "status": "hadir",
+            "date": "2023-03-05"
+        }
+        request(app)
+            .put("/attendances")
+            .send(salah)
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(404);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+                console.log(err);
+            });
+    });
+
+
+})

@@ -66,7 +66,6 @@ class chatController {
     } catch (err) {
       console.log(err);
       if (err.name === 'Not found') res.status(404).json({ message: err.name });
-      else res.status(500).json({ message: 'Internal server error' });
     }
   };
 }

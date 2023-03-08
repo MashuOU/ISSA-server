@@ -13,10 +13,6 @@ function errorHandler(err, req, res, next) {
             msg = "Invalid Username or Password";
             break;
 
-        case "loginFormEmpty":
-            statusCode = 400;
-            msg = "Username or Password is Required";
-            break;
 
         case "notFound":
             statusCode = 404;

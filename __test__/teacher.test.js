@@ -61,24 +61,16 @@ describe("post /teachers", () => {
         "NIP": "1800011221",
         "password": "qwerty",
     }
-    test("200 login", (done) => {
-        request(app)
-            .post("/teachers/login")
-            .send(bodyData)
-            .then((response) => {
-                const { body, status } = response;
+    let bodyDataSalah = {
+        "NIP": "18000111",
+        "password": "qwerty",
+    }
+    let bodyDataSalahPass = {
+        "NIP": "1800011221",
+        "password": "qwety",
+    }
 
-                expect(status).toBe(200);
-                expect(body).toHaveProperty("access_token", expect.any(String));
-                done();
-            })
-            .catch((err) => {
-                done(err);
-                console.log(err);
-            });
-    });
-
-    test("201 login", (done) => {
+    test("201 register", (done) => {
         request(app)
             .post("/teachers/register")
             .send(userTest3)
@@ -92,7 +84,122 @@ describe("post /teachers", () => {
             })
             .catch((err) => {
                 done(err);
-                console.log(err);
             });
     });
+
+    test("400 register", (done) => {
+        request(app)
+            .post("/teachers/register")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+    test("200 login", (done) => {
+        request(app)
+            .post("/teachers/login")
+            .send(bodyData)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(200);
+                expect(body).toHaveProperty("access_token", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("400 login", (done) => {
+        request(app)
+            .post("/teachers/login")
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("400 login", (done) => {
+        request(app)
+            .post("/teachers/login")
+            .send(bodyDataSalah)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+    test("400 login", (done) => {
+        request(app)
+            .post("/teachers/login")
+            .send(bodyDataSalahPass)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(400);
+                expect(body).toHaveProperty("msg", expect.any(String));
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+
+    test("200 all teachers", (done) => {
+        request(app)
+            .get("/teachers/")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(200);
+                expect(Array.isArray(body)).toBeTruthy();
+                expect(body.length).toBeGreaterThan(0);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+
+    test("500 all teachers", (done) => {
+        jest.spyOn(Teacher, "findAll").mockRejectedValue("Error")
+
+        request(app)
+            .get("/teachers/")
+            .set("access_token", validToken)
+            .then((response) => {
+                const { body, status } = response;
+
+                expect(status).toBe(500);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
+    });
+
+
 });

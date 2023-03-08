@@ -15,7 +15,6 @@ class UserController {
       } else {
         const isValid = compareHash(password, data.password);
         if (!isValid) {
-          console.log(data, '<><><><><><><><><><><><><><><><><><><><><><><><><><>');
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIM);
@@ -24,37 +23,6 @@ class UserController {
       }
     } catch (error) {
       next(error);
-    }
-  }
-
-  static async userChild(req, res, next) {
-    try {
-      const userChild = await Student.findOne({
-        where: { NIM: req.user.NIM },
-        include: [
-          {
-            model: Class,
-            include: {
-              model: Teacher,
-              attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
-            },
-          },
-          {
-            model: Attendance,
-          },
-          {
-            model: Score,
-            attributes: { exclude: ['createdAt', 'updatedAt'] },
-            include: {
-              model: Lesson,
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
-            },
-          },
-        ],
-      });
-      res.status(200).json(userChild);
-    } catch (err) {
-      next(err);
     }
   }
 }
