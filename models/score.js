@@ -53,5 +53,18 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Score',
     }
   );
+  Score.beforeCreate((score) => {
+    if (score.value >= 85 && score.value <= 100) {
+      score.category = "A"
+    } else if (score.value >= 75 && score.value < 85) {
+      score.category = "B"
+    } else if (score.value >= 60 && score.value < 75) {
+      score.category = "C"
+    } else if (score.value >= 50 && score.value < 60) {
+      score.category = "D"
+    } else {
+      score.category = "E"
+    }
+  })
   return Score;
 };

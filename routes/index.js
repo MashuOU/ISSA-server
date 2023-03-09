@@ -7,6 +7,8 @@ const lesson = require('./lesson');
 const activity = require('./activity');
 const attendance = require('./attendance');
 const score = require('./score');
+
+const assignment = require('./assignment')
 const chatTeacher = require('./chatTeacher');
 const chatParent = require('./chatParent');
 const schedule = require('./schedule');
@@ -26,6 +28,7 @@ router.use('/chatParent', userAuth, chatParent);
 router.use(teacherAuth);
 
 router.use('/students', student);
+router.use('/assignments', assignment)
 router.use('/lessons', lesson);
 router.use('/scores', score);
 router.use('/activities', activity);
