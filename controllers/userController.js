@@ -19,7 +19,6 @@ class UserController {
       } else {
         const isValid = compareHash(password, data.password);
         if (!isValid) {
-          console.log(data, '<><><><><><><><><><><><><><><><><><><><><><><><><><>');
           throw { name: 'loginError' };
         } else {
           const access_token = createToken(data.NIM);
