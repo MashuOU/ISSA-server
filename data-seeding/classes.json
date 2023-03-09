@@ -1,0 +1,12 @@
+[
+  {
+    "name": "5A",
+    "TeacherId": 1,
+    "SPP": 200000
+  },
+  {
+    "name": "5B",
+    "TeacherId": 2,
+    "SPP": 250000
+  }
+]
