@@ -23,6 +23,11 @@ function errorHandler(err, req, res, next) {
             msg = "Data Not Found";
             break;
 
+        case "alreadypayment":
+            statusCode = 400;
+            msg = "the school fee is already pay"
+            break;
+
         case "unAuthentication":
         case "JsonWebTokenError":
             statusCode = 401;

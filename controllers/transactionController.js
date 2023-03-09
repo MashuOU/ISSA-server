@@ -10,10 +10,14 @@ class TransactionController {
         where: { id: StudentId },
         include: [{ model: Class }, { model: User }],
       });
-      console.log(student.Class.SPP, '>>>>>');
-      const { NIM } = req.user;
+
+      const check = await Transaction.findOne({
+        where: { StudentId: StudentId },
+        order: [['createdAt', 'DESC']]
+      })
+      if (check.status === true) throw { name: `alreadypayment` }
+
       let snap = new midtransClient.Snap({
-        // Set to true if you want Production Environment (accept real transaction).
         isProduction: false,
         serverKey: 'SB-Mid-server-hJt-nLiZ4zT2U1ugrPxzah2p',
       });
@@ -27,17 +31,14 @@ class TransactionController {
           secure: true,
         },
         customer_details: {
-          NIM: NIM,
-          name: student.name,
-          clsss: student.Class.name,
+          first_name: student.name,
+          last_name: student.Class.name,
         },
-      };
-      const transaction = await Transaction.create({ status: true, StudentId: student.id, dueDate: new Date() });
-      snap.createTransaction(parameter).then((transaction) => {
-        let transactionToken = transaction.token;
-        console.log(transactionToken);
-        res.status(201).json({ transactionToken });
-      });
+      }
+
+      const midtransToken = await snap.createTransaction(parameter)
+      res.status(201).json(midtransToken)
+
       sendMail(student);
     } catch (error) {
       next(error);
@@ -49,10 +50,12 @@ class TransactionController {
       const data = await Transaction.findAll();
       if (!data) throw { name: 'notFound' };
 
-      res.status(200).json(data);
+      res.status(201).json({ msg: `payment success` });
     } catch (err) {
       next(err);
     }
   }
+
+
 }
 module.exports = TransactionController;

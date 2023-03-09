@@ -102,6 +102,27 @@ class StudentController {
     }
   }
 
+  static async successPayment(req, res, next) {
+    try {
+      let student = await Student.findOne({ where: { NIM: req.user.NIM } })
+
+      const trasanction = await Transaction.findOne({
+        where: {
+          StudentId: student.id
+        },
+        order: [['createdAt', 'DESC']]
+      });
+      const data = await Transaction.update({ status: true }, {
+        where: {
+          id: trasanction.id
+        }
+      })
+      res.status(200).json(data);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async statistic(req, res, next) {
     try {
       let query = `

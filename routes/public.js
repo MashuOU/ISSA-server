@@ -14,6 +14,7 @@ router.get('/schedule', publicController.schedules);
 router.get('/activity', publicController.allActivities);
 router.get('/transaction', publicController.transactionStatus);
 router.get('/statistic', publicController.statistic);
+router.patch('/transaction', publicController.successPayment);
 
 
 // router.get('/activity/:id', publicController.activityById);

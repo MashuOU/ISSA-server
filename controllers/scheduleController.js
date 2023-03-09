@@ -8,7 +8,7 @@ class ScheduleController {
       const data = await Schedule.findAll({
         where: { ClassId: idTeacher },
         include: {
-          model: Schedule,
+          model: Lesson,
         },
       });
       res.status(200).json(data);
