@@ -15,6 +15,7 @@ const schedule = require('./schedule');
 const classes = require('./class');
 const publicRouter = require('./public');
 const history = require('./history');
+const transaction = require('./transactions');
 const { teacherAuth, userAuth } = require('../middlewares/authentication');
 
 router.use('/public', publicRouter);
@@ -35,6 +36,7 @@ router.use('/attendances', attendance);
 router.use('/schedules', schedule);
 router.use('/histories', history);
 router.use('/classes', classes);
+router.use('/transactions', transaction);
 
 router.get('/', (req, res) => {
   res.send(`
