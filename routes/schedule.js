@@ -3,5 +3,6 @@ const router = express.Router();
 const ScheduleController = require('../controllers/scheduleController');
 
 router.get('/', ScheduleController.schedules);
+router.get('/:id', ScheduleController.scheduleById);
 
 module.exports = router;
