@@ -23,7 +23,8 @@ class StudentController {
   }
   static async studentById(req, res, next) {
     try {
-      const data = await Student.findByPk(req.user.ClassId, {
+      const data = await Student.findOne({
+        where: { NIM: req.user.NIM },
         include: [
           {
             model: Class,
