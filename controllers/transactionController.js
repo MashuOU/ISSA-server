@@ -10,7 +10,7 @@ class TransactionController {
         where: { id: StudentId },
         include: [{ model: Class }, { model: User }],
       });
-      console.log(student.Class.SPP, '>>>>>');
+      // console.log(student.Class.SPP, '>>>>>');
       const { NIM } = req.user;
       let snap = new midtransClient.Snap({
         // Set to true if you want Production Environment (accept real transaction).
@@ -32,7 +32,8 @@ class TransactionController {
           clsss: student.Class.name,
         },
       };
-      const transaction = await Transaction.create({ status: true, StudentId: student.id, dueDate: new Date() });
+      // const transaction = await Transaction.create({ status: true, StudentId: student.id, dueDate: new Date() });
+      const payed = await Transaction.update({ status: true }, { where: { StudentId } });
       snap.createTransaction(parameter).then((transaction) => {
         let transactionToken = transaction.token;
         console.log(transactionToken);

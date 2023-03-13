@@ -94,9 +94,32 @@ class StudentController {
     }
   }
   static async transactionStatus(req, res, next) {
+    let today = new Date();
+    let lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     try {
-      const data = await Transaction.findOne({ where: { StudentId: req.user.id } });
-      res.status(200).json(data);
+      // let [transaction, created] = await Transaction.findOrCreate({
+      //   where: { StudentId: req.user.idStudent },
+      //   default: {
+      //     status: false,
+      //     dueDate: lastDayOfMonth,
+      //     StudentId: req.user.idStudent,
+      //   },
+      // });
+      // if (created) {
+      //   created = transaction;
+      //   console.log(created, '<<<<< created');
+      // }
+      const tansaction = await Transaction.findOne({ where: { StudentId: req.user.id } });
+      if (!tansaction) {
+        const newTansaction = await Transaction.create({
+          status: false,
+          dueDate: lastDayOfMonth,
+          StudentId: req.user.idStudent,
+        });
+        res.status(200).json(newTansaction);
+      } else {
+        res.status(200).json(tansaction);
+      }
     } catch (error) {
       next(error);
     }

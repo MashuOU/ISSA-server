@@ -25,11 +25,13 @@ async function userAuth(req, res, next) {
     let payload = decodeToken(access_token);
     let user = await User.findOne({ where: { NIM: payload } });
     let student = await Student.findOne({ where: { NIM: payload } });
+    // console.log(student, '<<<<<<');
     if (!user) throw { name: `unAuthentication` };
     req.user = {
       id: user.id,
+      idStudent: student.dataValues.id,
       NIM: user.NIM,
-      ClassId: student.ClassId
+      ClassId: student.ClassId,
     };
     next();
   } catch (error) {
