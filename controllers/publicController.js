@@ -1,5 +1,7 @@
 const { Student, Attendance, Transaction, Score, Lesson, Class, Teacher, Assignment, Schedule, Activity, sequelize } = require('../models');
 
+const { Op } = require('sequelize');
+
 class StudentController {
   static async allStudent(req, res, next) {
     try {
@@ -109,7 +111,13 @@ class StudentController {
       //   created = transaction;
       //   console.log(created, '<<<<< created');
       // }
-      const tansaction = await Transaction.findOne({ where: { StudentId: req.user.id } });
+      const tansaction = await Transaction.findOne({
+        where: {
+          [Op.and]: [{ StudentId: req.user.id }, { dueDate: lastDayOfMonth }],
+        },
+      });
+      // res.status(200).json(tansaction);
+
       if (!tansaction) {
         const newTansaction = await Transaction.create({
           status: false,

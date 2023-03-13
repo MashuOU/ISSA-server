@@ -33,12 +33,12 @@ class TransactionController {
         },
       };
       // const transaction = await Transaction.create({ status: true, StudentId: student.id, dueDate: new Date() });
-      const payed = await Transaction.update({ status: true }, { where: { StudentId } });
       snap.createTransaction(parameter).then((transaction) => {
         let transactionToken = transaction.token;
         console.log(transactionToken);
         res.status(201).json({ transactionToken });
       });
+      const payed = await Transaction.update({ status: true }, { where: { StudentId } });
       sendMail(student);
     } catch (error) {
       next(error);
