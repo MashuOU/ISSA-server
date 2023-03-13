@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     let data = require('../data-seeding/attendances.json').map((x) => {
-      x.createdAt = new Date();
+      // x.createdAt = new Date();
       x.updatedAt = new Date();
       return x;
     });

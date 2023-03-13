@@ -1,32 +1,26 @@
 [
   {
     "name": "Mathematic",
-    "imgUrl": "https://img.freepik.com/premium-vector/cartoon-math-chalkboard-background_23-2148154590.jpg?w=2000",
-    "KKM": 70,
-    "desc": "Mathematic is easy"
-  },
-  {
-    "name": "Indonesian",
-    "imgUrl": "https://www.shutterstock.com/image-vector/online-indonesian-language-courses-flat-260nw-1825252160.jpg",
-    "KKM": 70,
-    "desc": "Indonesian is easy"
-  },
-  {
-    "name": "English",
-    "imgUrl": "https://britishcentre.az/image/faydali-ve-maraqli/en/1580493379-tess-british-centre.jpg",
-    "KKM": 70,
-    "desc": "English is easy"
+    "imgUrl": "https://cdn-icons-png.flaticon.com/512/221/221945.png",
+    "KKM": 80,
+    "desc": "Mathematic Lesson"
   },
   {
     "name": "Science",
-    "imgUrl": "https://img.freepik.com/free-vector/hand-drawn-science-education-background_23-2148499325.jpg",
+    "imgUrl": "https://static.thenounproject.com/png/154265-200.png",
     "KKM": 70,
-    "desc": "Science is easy"
+    "desc": "Science Lesson"
   },
   {
-    "name": "Social Science",
-    "imgUrl": "https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2020/08/06185124/Branches-of-Social-Sciences-1.png",
+    "name": "English",
     "KKM": 70,
-    "desc": "Social Science is easy"
+    "imgUrl": "https://cdn-icons-png.flaticon.com/512/484/484633.png",
+    "desc": "English Lesson"
+  },
+  {
+    "name": "Art",
+    "imgUrl": "https://cdn-icons-png.flaticon.com/128/4697/4697013.png",
+    "KKM": 70,
+    "desc": "Art Lesson"
   }
 ]
